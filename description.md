@@ -1306,7 +1306,7 @@ Enums avoid the complexities of double‑checked locking and protect against mul
 
 ### Factory Method: advanced usage and variations
 
-**When to use** – The Factory Method pattern is helpful when a class must delegate the creation of objects to its subclasses.  It removes the need for the base class to know about concrete classes, complying with the open‑closed principle【419336424956295†L105-L145】.  Factory methods are also useful when a class cannot anticipate the class of the objects it needs to create or when a class wants its subclasses to specify the created objects.
+**When to use** – The Factory Method pattern is helpful when a class must delegate the creation of objects to its subclasses.  It removes the need for the base class to know about concrete classes, complying with the open‑closed principle.  Factory methods are also useful when a class cannot anticipate the class of the objects it needs to create or when a class wants its subclasses to specify the created objects.
 
 **Parameterized factory** – Sometimes the type of product cannot be decided solely by the class hierarchy.  A factory method may take a parameter that influences the created object.  The following example shows a document editor supporting both text and spreadsheet documents:
 
@@ -1375,7 +1375,7 @@ This lambda‑based factory is easy to extend: just add a new entry to the `Map`
 
 ### Abstract Factory: cross‑platform design
 
-**Motivation** – When software needs to create families of related objects (such as buttons, scroll bars and windows) that must work together, the Abstract Factory pattern provides an interface for creating the entire family without specifying concrete classes.  It ensures that products from the same family are used together【898999994817339†L8-L10】.
+**Motivation** – When software needs to create families of related objects (such as buttons, scroll bars and windows) that must work together, the Abstract Factory pattern provides an interface for creating the entire family without specifying concrete classes.  It ensures that products from the same family are used together.
 
 **Cross‑platform UI example** – Suppose we are developing a drawing application that supports multiple operating systems (Windows, macOS, Linux).  Each OS has a distinct look and feel.  We need to build the same user interface with platform‑appropriate widgets.  The naïve approach uses conditional logic throughout the codebase:
 
@@ -1472,7 +1472,7 @@ class Person {
 }
 ```
 
-**Fluent builder** – The Builder pattern solves this by separating object construction from its representation【138529236049315†L8-L10】.  It provides a fluent API that lets you set optional fields step by step.  Once all fields are configured, call `build()` to create an immutable object.  The builder can enforce invariants and supply defaults:
+**Fluent builder** – The Builder pattern solves this by separating object construction from its representation.  It provides a fluent API that lets you set optional fields step by step.  Once all fields are configured, call `build()` to create an immutable object.  The builder can enforce invariants and supply defaults:
 
 ```java
 class Person {
@@ -1525,7 +1525,7 @@ Builders often return `this` to enable method chaining, producing a readable cal
 
 ### Prototype: deep vs shallow copying
 
-**Shallow copy** – The prototype pattern copies an existing object (prototype) to create new instances quickly【624748897258234†L26-L33】.  The default `clone()` implementation in Java performs a **shallow copy**, copying primitive fields and object references without cloning referenced objects.  Shallow copy is fast but the prototype and clone share mutable internal objects, leading to unintended side effects.
+**Shallow copy** – The prototype pattern copies an existing object (prototype) to create new instances quickly.  The default `clone()` implementation in Java performs a **shallow copy**, copying primitive fields and object references without cloning referenced objects.  Shallow copy is fast but the prototype and clone share mutable internal objects, leading to unintended side effects.
 
 ```java
 class Address { String street; String city; }
@@ -1581,7 +1581,7 @@ When using prototypes, consider whether you need deep or shallow copies.  Also, 
 
 ### Bridge: decoupling abstractions and implementations
 
-**Motivation** – When a class has multiple dimensions of variability, a single inheritance hierarchy leads to a combinatorial explosion of subclasses【397500904049375†L36-L45】.  The Bridge pattern splits the class into an **abstraction** hierarchy and an **implementation** hierarchy.  Each abstraction contains a reference to an implementation and delegates work to it.  The two hierarchies can vary independently.
+**Motivation** – When a class has multiple dimensions of variability, a single inheritance hierarchy leads to a combinatorial explosion of subclasses.  The Bridge pattern splits the class into an **abstraction** hierarchy and an **implementation** hierarchy.  Each abstraction contains a reference to an implementation and delegates work to it.  The two hierarchies can vary independently.
 
 **Example – shapes and colours** – Suppose you need to draw shapes (circle, square) in different colours (red, blue).  Without a bridge, you might create `RedCircle`, `BlueCircle`, `RedSquare`, `BlueSquare`.  With the bridge, you create separate shape and colour hierarchies:
 
@@ -1622,7 +1622,7 @@ The `Shape` abstraction delegates colour selection to the `Color` implementor.  
 
 ### Adapter: class vs object adapters
 
-**Class adapter** – The canonical example of an adapter converts one interface into another【749055448101560†L10-L12】.  In languages that support multiple inheritance, you can create an adapter by inheriting from both the target interface and the adaptee class.  Java doesn’t support multiple implementation inheritance, but you can simulate a class adapter by extending the adaptee and implementing the target interface:
+**Class adapter** – The canonical example of an adapter converts one interface into another.  In languages that support multiple inheritance, you can create an adapter by inheriting from both the target interface and the adaptee class.  Java doesn’t support multiple implementation inheritance, but you can simulate a class adapter by extending the adaptee and implementing the target interface:
 
 ```java
 // Target interface
@@ -1669,7 +1669,7 @@ Object adapters allow you to wrap existing instances at runtime, while class ada
 
 ### Decorator: layering behaviours
 
-**Motivation** – The Decorator pattern attaches additional responsibilities to an object dynamically【458972276937605†L10-L12】.  Unlike static inheritance, decorators can be composed at runtime in any combination, giving flexibility when adding features.  For example, consider a `Coffee` interface with optional milk, sugar or whipped cream.  Without decorators you would need subclasses like `MilkCoffee`, `SugarCoffee`, `MilkSugarCoffee`, etc., leading to an explosion of classes.
+**Motivation** – The Decorator pattern attaches additional responsibilities to an object dynamically.  Unlike static inheritance, decorators can be composed at runtime in any combination, giving flexibility when adding features.  For example, consider a `Coffee` interface with optional milk, sugar or whipped cream.  Without decorators you would need subclasses like `MilkCoffee`, `SugarCoffee`, `MilkSugarCoffee`, etc., leading to an explosion of classes.
 
 **Coffee example** – Using the decorator pattern, each feature is implemented as a decorator that wraps an existing coffee object:
 
@@ -1704,7 +1704,7 @@ Decorators allow layering: you can wrap a coffee with multiple decorators in any
 
 ### Composite: transparent vs safe composites
 
-**Transparent vs safe** – The Composite pattern treats individual objects and compositions uniformly【849602717434773†L10-L12】.  In the **transparent** version, the component interface defines operations for both leaf and composite objects (e.g., `add()`, `remove()`, `draw()`).  This makes it easy for clients to treat all components uniformly but requires leaves to implement methods that do not make sense.  In the **safe** version, leaf and composite classes have distinct interfaces: the leaf exposes only operations relevant to itself, while the composite adds child management methods.  The safe version avoids meaningless methods on leaves but forces clients to distinguish between leaf and composite types.
+**Transparent vs safe** – The Composite pattern treats individual objects and compositions uniformly.  In the **transparent** version, the component interface defines operations for both leaf and composite objects (e.g., `add()`, `remove()`, `draw()`).  This makes it easy for clients to treat all components uniformly but requires leaves to implement methods that do not make sense.  In the **safe** version, leaf and composite classes have distinct interfaces: the leaf exposes only operations relevant to itself, while the composite adds child management methods.  The safe version avoids meaningless methods on leaves but forces clients to distinguish between leaf and composite types.
 
 **File system example** – The file system is a classic composite.  Files are leaves; directories are composites.  Clients can treat both as `FileSystemNode`s when traversing or calculating sizes.  A safe composite prevents files from having child management methods:
 
@@ -1749,7 +1749,7 @@ Because files cannot contain children, the API prevents accidental misuse.  Clie
 
 ### Proxy: types and real‑world analogies
 
-**Varieties of proxies** – The Proxy pattern provides a surrogate or placeholder that controls access to an underlying object【122749099349736†L19-L21】.  There are several flavours:
+**Varieties of proxies** – The Proxy pattern provides a surrogate or placeholder that controls access to an underlying object.  There are several flavours:
 
 * **Virtual proxy** – Instantiates expensive objects on demand.  Useful when loading an object is resource intensive (e.g., loading an image from disk or a huge document from a remote server).
 * **Protection proxy** – Controls access to the real object by checking permissions before delegating a request.  Often used in security contexts.
@@ -1821,7 +1821,7 @@ In this example, the protection proxy enforces access control.  The client inter
 
 ### Observer: push vs pull notifications
 
-**Push vs pull** – The Observer pattern establishes a one‑to‑many dependency【464178753879930†L101-L105】.  There are two common notification styles.  In the **push** model, the subject sends the data along with the notification.  Observers simply consume the provided data.  In the **pull** model, the subject sends only a simple notification (e.g., “I changed”) and observers query the subject for details.
+**Push vs pull** – The Observer pattern establishes a one‑to‑many dependency.  There are two common notification styles.  In the **push** model, the subject sends the data along with the notification.  Observers simply consume the provided data.  In the **pull** model, the subject sends only a simple notification (e.g., “I changed”) and observers query the subject for details.
 
 **Temperature sensor example** – We model a temperature sensor (`Subject`) and displays (`Observers`).  In the push approach, the sensor notifies observers with the temperature value.  In the pull approach, observers call back to the sensor to read the latest temperature.
 
@@ -1885,7 +1885,7 @@ The pull model reduces coupling because the subject does not need to know which 
 
 ### Strategy: selecting algorithms at runtime
 
-**Motivation** – The Strategy pattern encapsulates interchangeable algorithms【710588763617887†L8-L10】.  Clients choose the appropriate strategy at runtime.  This pattern eliminates large conditional statements and promotes open/closed design.  Strategies are often combined with dependency injection to supply the desired algorithm.
+**Motivation** – The Strategy pattern encapsulates interchangeable algorithms.  Clients choose the appropriate strategy at runtime.  This pattern eliminates large conditional statements and promotes open/closed design.  Strategies are often combined with dependency injection to supply the desired algorithm.
 
 **Sorting example** – Suppose we have multiple sorting algorithms (bubble sort, quick sort, merge sort).  Without strategy, a `Sorter` class might include a `switch` over algorithm names, cluttering the code.  Using strategies, each algorithm is a separate class implementing a common interface:
 
@@ -1958,7 +1958,7 @@ names.sort(alphabetical);    // sort alphabetically
 
 ### Template Method: hooks and customization
 
-**Hooks** – The Template Method pattern defines the skeleton of an algorithm【861442615467999†L8-L10】 and allows subclasses to refine certain steps.  To further customise the algorithm, the base class can define **hook methods**: optional override points that do nothing by default.  Subclasses can override hooks to inject behaviour at particular points.
+**Hooks** – The Template Method pattern defines the skeleton of an algorithm and allows subclasses to refine certain steps.  To further customise the algorithm, the base class can define **hook methods**: optional override points that do nothing by default.  Subclasses can override hooks to inject behaviour at particular points.
 
 **Game example** – Consider a game framework that defines the sequence: initialize, start play, end play.  Subclasses override core steps and can optionally hook into the end of the game to display a message:
 
