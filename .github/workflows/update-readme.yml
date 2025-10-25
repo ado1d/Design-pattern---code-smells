@@ -1,0 +1,25 @@
+name: Update README from description.md
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  sync-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Replace README.md with description.md content
+        run: |
+          cp description.md README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Auto update README from description.md" || echo "No changes to commit"
+          git push
