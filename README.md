@@ -5,82 +5,81 @@
 Below is a compact table of contents. Click a link to jump to the section.
 
 - [Complete Guide to Code Smells, Design Principles and Design Patterns](#complete-guide-to-code-smells-design-principles-and-design-patterns)
-        - [Quick Navigation](#quick-navigation)
-        - [Introduction](#introduction)
-        - [Part 1 — Code Smells and Their Remedies](#part-1-code-smells-and-their-remedies)
-                - [Overview of Code Smells](#overview-of-code-smells)
-                - [1. Bloaters](#1-bloaters)
-                        - [1.1 Long Method](#11-long-method)
-                        - [1.2 Large Class](#12-large-class)
-                        - [1.3 Primitive Obsession](#13-primitive-obsession)
-                        - [1.4 Long Parameter List](#14-long-parameter-list)
-                        - [1.5 Data Clumps](#15-data-clumps)
-                - [2. Object-Orientation Abusers](#2-object-orientation-abusers)
-                        - [2.1 Switch Statements](#21-switch-statements)
-                        - [2.2 Temporary Field](#22-temporary-field)
-                        - [2.3 Refused Bequest](#23-refused-bequest)
-                        - [2.4 Alternative Classes with Different Interfaces](#24-alternative-classes-with-different-interfaces)
-                - [3. Change Preventers](#3-change-preventers)
-                        - [3.1 Divergent Change](#31-divergent-change)
-                        - [3.2 Shotgun Surgery](#32-shotgun-surgery)
-                        - [3.3 Parallel Inheritance Hierarchies](#33-parallel-inheritance-hierarchies)
-                - [4. Dispensables](#4-dispensables)
-                        - [4.1 Comments](#41-comments)
-                        - [4.2 Duplicate Code](#42-duplicate-code)
-                        - [4.3 Lazy Class](#43-lazy-class)
-                        - [4.4 Data Class](#44-data-class)
-                        - [4.5 Dead Code](#45-dead-code)
-                        - [4.6 Speculative Generality](#46-speculative-generality)
-                - [5. Couplers](#5-couplers)
-                        - [5.1 Feature Envy](#51-feature-envy)
-                        - [5.2 Inappropriate Intimacy](#52-inappropriate-intimacy)
-                        - [5.3 Message Chains](#53-message-chains)
-                        - [5.4 Middle Man](#54-middle-man)
-        - [Part 2 — Design Principles](#part-2-design-principles)
-                - [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
-                - [Open-Closed Principle (OCP)](#open-closed-principle-ocp)
-                - [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
-                - [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
-                - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
-                - [DRY — Don’t Repeat Yourself](#dry--dont-repeat-yourself)
-                - [KISS — Keep It Simple, Stupid](#kiss--keep-it-simple-stupid)
-        - [Part 3 — Creational Design Patterns](#part-3-creational-design-patterns)
-                - [Singleton](#1-singleton)
-                - [Factory Method](#2-factory-method)
-                - [Abstract Factory](#3-abstract-factory)
-                - [Builder](#4-builder)
-                - [Prototype](#5-prototype)
-        - [Part 4 — Structural Design Patterns](#part-4-structural-design-patterns)
-                - [Bridge](#1-bridge)
-                - [Adapter](#2-adapter)
-                - [Decorator](#3-decorator)
-                - [Composite](#4-composite)
-                - [Proxy](#5-proxy)
-        - [Part 5 — Behavioral Design Patterns](#part-5-behavioral-design-patterns)
-                - [Observer](#1-observer)
-                - [Strategy](#2-strategy)
-                - [Template Method](#3-template-method)
-                - [State](#4-state)
-                - [Mediator](#5-mediator)
-                - [Iterator](#6-iterator)
-        - [Conclusion](#conclusion)
-        - [Appendix — Extended Design Pattern Discussion](#appendix-extended-design-pattern-discussion)
-                - [Singleton: variations and best practices](#singleton-variations-and-best-practices)
-                - [Factory Method: advanced usage and variations](#factory-method-advanced-usage-and-variations)
-                - [Abstract Factory: cross-platform design](#abstract-factory-cross-platform-design)
-                - [Builder: telescoping constructors and immutability](#builder-telescoping-constructors-and-immutability)
-                - [Prototype: deep vs shallow copying](#prototype-deep-vs-shallow-copying)
-                - [Bridge: decoupling abstractions and implementations](#bridge-decoupling-abstractions-and-implementations)
-                - [Adapter: class vs object adapters](#adapter-class-vs-object-adapters)
-                - [Decorator: layering behaviours](#decorator-layering-behaviours)
-                - [Composite: transparent vs safe composites](#composite-transparent-vs-safe-composites)
-                - [Proxy: types and real-world analogies](#proxy-types-and-real-world-analogies)
-                - [Observer: push vs pull notifications](#observer-push-vs-pull-notifications)
-                - [Strategy: selecting algorithms at runtime](#strategy-selecting-algorithms-at-runtime)
-                - [Template Method: hooks and customization](#template-method-hooks-and-customization)
-                - [State: enumerations and dynamic transitions](#state-enumerations-and-dynamic-transitions)
-                - [Mediator: centralized communication examples](#mediator-centralized-communication-examples)
-                - [Iterator: external vs internal iteration](#iterator-external-vs-internal-iteration)
+  - [Quick Navigation](#quick-navigation)
+  - [Introduction](#introduction)
+  - [Part 1 – Code Smells and Their Remedies](#part1--codesmells-and-their-remedies)
+    - [Overview of Code Smells](#overview-of-code-smells)
+    - [1. Bloaters](#1bloaters)
+      - [1.1 Long Method](#11longmethod)
+      - [1.2 Large Class](#12largeclass)
+      - [1.3 Primitive Obsession](#13primitiveobsession)
+      - [1.4 Long Parameter List](#14long-parameter-list)
+      - [1.5 Data Clumps](#15dataclumps)
+    - [2. Object‑Orientation Abusers](#2objectorientation-abusers)
+      - [2.1 Switch Statements](#21switchstatements)
+      - [2.2 Temporary Field](#22temporaryfield)
+      - [2.3 Refused Bequest](#23refusedbequest)
+      - [2.4 Alternative Classes with Different Interfaces](#24alternative-classes-with-different-interfaces)
+    - [3. Change Preventers](#3changepreventers)
+      - [3.1 Divergent Change](#31divergent-change)
+      - [3.2 Shotgun Surgery](#32shotgun-surgery)
+      - [3.3 Parallel Inheritance Hierarchies](#33parallelinheritancehierarchies)
+    - [4. Dispensables](#4dispensables)
+      - [4.1 Comments](#41comments)
+      - [4.2 Duplicate Code](#42duplicate-code)
+      - [4.3 Lazy Class](#43lazy-class)
+      - [4.4 Data Class](#44dataclass)
+      - [4.5 Dead Code](#45dead-code)
+      - [4.6 Speculative Generality](#46speculative-generality)
+    - [5. Couplers](#5couplers)
+      - [5.1 Feature Envy](#51featureenvy)
+      - [5.2 Inappropriate Intimacy](#52inappropriateintimacy)
+      - [5.3 Message Chains](#53messagechains)
+      - [5.4 Middle Man](#54middleman)
+  - [Part 2 – Design Principles](#part2--design-principles)
+    - [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+    - [Open–Closed Principle (OCP)](#openclosed-principle-ocp)
+    - [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+    - [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+    - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+    - [DRY – Don’t Repeat Yourself](#dry--dont-repeat-yourself)
+    - [KISS – Keep It Simple, Stupid](#kiss--keep-it-simple-stupid)
+  - [Part 3 – Creational Design Patterns](#part3--creational-design-patterns)
+    - [1. Singleton](#1singleton)
+    - [2. Factory Method](#2factory-method)
+    - [3. Abstract Factory](#3abstract-factory)
+    - [4. Builder](#4builder)
+    - [5. Prototype](#5prototype)
+  - [Part 4 – Structural Design Patterns](#part4--structural-design-patterns)
+    - [1. Bridge](#1bridge)
+    - [2. Adapter](#2adapter)
+    - [3. Decorator](#3decorator)
+    - [4. Composite](#4composite)
+    - [5. Proxy](#5proxy)
+  - [Part 5 – Behavioral Design Patterns](#part5--behavioral-design-patterns)
+    - [1. Observer](#1observer)
+    - [2. Strategy](#2strategy)
+    - [3. Template Method](#3templatemethod)
+    - [4. State](#4state)
+    - [5. Mediator](#5mediator)
+    - [6. Iterator](#6iterator)
+  - [Conclusion](#conclusion)
+  - [Appendix – Extended Design Pattern Discussion](#appendix-extended-designpattern-discussion)
+    - [Singleton: variations and best practices](#singleton-variations-and-best-practices)
+    - [Factory Method: advanced usage and variations](#factorymethod-advanced-usage-and-variations)
+    - [Abstract Factory: cross‑platform design](#abstractfactory-crossplatform-design)
+    - [Builder: telescoping constructors and immutability](#builder-telescoping-constructors-and-immutability)
+    - [Prototype: deep vs shallow copying](#prototype-deep-vs-shallow-copying)
+    - [Bridge: decoupling abstractions and implementations](#bridge-decoupling-abstractions-and-implementations)
+    - [Adapter: class vs object adapters](#adapter-class-vs-object-adapters)
+    - [Decorator: layering behaviours](#decorator-layering-behaviours)
+    - [Composite: transparent vs safe composites](#composite-transparent-vs-safe-composites)
+    - [Proxy: types and real‑world analogies](#proxy-types-and-realworld-analogies)
+    - [Observer: push vs pull notifications](#observer-push-vs-pull-notifications)
+    - [Strategy: selecting algorithms at runtime](#strategy-selecting-algorithms-at-runtime)
+    - [Template Method: hooks and customization](#templatemethod-hooks-and-customization)
+    - [State: enumerations and dynamic transitions](#state-enumerations-and-dynamic-transitions)
+    - [Mediator: centralized communication examples](#mediator-centralized-communication-examples)
 
 ---
 
@@ -700,6 +699,17 @@ class UIClient {
                 btn.render(); tf.render();
         }
 }
+interface Button { void render(); }
+interface TextField { void render(); }
+class WindowsButton implements Button { public void render() { System.out.println("Windows Button"); } }
+class WindowsTextField implements TextField { public void render() { System.out.println("Windows TextField"); } }
+class MacButton implements Button { public void render() { System.out.println("Mac Button"); } }
+class MacTextField implements TextField { public void render() { System.out.println("Mac TextField"); } }
+
+// Client code uses conditionals to create specific classes
+UIClient client = new UIClient();
+client.render("Windows");
+client.render("Mac");
 ```
 
 **Refactored Using Abstract Factory**
@@ -739,6 +749,8 @@ class UIClient {
 UIClient client = new UIClient(new WindowsFactory());
 client.render();
 ```
+
+Adding a new platform requires creating a new factory and product classes without modifying existing code.
 
 ### 4. Builder
 
@@ -1128,7 +1140,7 @@ processor.process(image);
 
 Defines the skeleton of an algorithm in an operation, deferring some steps to subclasses.  Template method lets subclasses redefine certain steps without changing the algorithm’s structure.
 
-**Problem Scenario**: Data miners for various file formats (CSV, XML, JSON) implement the same sequence: open file, parse data, analyze results, output report.  Without template method, each miner repeats the common sequence.
+**Problem Scenario**: Data miners for various file formats (CSV, XML, JSON) implement the same sequence: open file, parse data, analyze results, output report.  Subclasses repeat the sequence, leading to code duplication.
 
 ```java
 class CsvDataMiner {
@@ -1753,42 +1765,47 @@ Object adapters allow you to wrap existing instances at runtime, while class ada
 
 ### Decorator: layering behaviours
 
-**Motivation** – The Decorator pattern attaches additional responsibilities to an object dynamically.  Unlike static inheritance, decorators can be composed at runtime in any combination, giving flexibility when adding features.  For example, consider a `Coffee` interface with optional milk, sugar or whipped cream.  Without decorators you would need subclasses like `MilkCoffee`, `SugarCoffee`, `MilkSugarCoffee`, etc., leading to an explosion of classes.
+**Motivation** – The Decorator pattern attaches additional responsibilities to an object dynamically.  Unlike static inheritance, decorators can be composed at runtime in any combination, giving flexibility when adding features.  Decorators are often used to add responsibilities like logging, authentication or data compression.
 
-**Coffee example** – Using the decorator pattern, each feature is implemented as a decorator that wraps an existing coffee object:
+**Coffee example revisited** – Suppose we have a `Coffee` interface and want to add milk, sugar and whipped cream as optional enhancements.  Without decorators, we would need a `Coffee` class and subclasses like `MilkCoffee`, `SugarCoffee`, `MilkSugarCoffee`, etc.
 
 ```java
-interface Coffee { String getIngredients(); double getCost(); }
-class BasicCoffee implements Coffee {
-        public String getIngredients() { return "Coffee"; }
-        public double getCost() { return 2.0; }
+interface Coffee {
+        double cost();
+        String ingredients();
 }
-abstract class CoffeeDecorator implements Coffee {
-        protected final Coffee coffee;
-        protected CoffeeDecorator(Coffee coffee) { this.coffee = coffee; }
-        public String getIngredients() { return coffee.getIngredients(); }
-        public double getCost() { return coffee.getCost(); }
+class SimpleCoffee implements Coffee {
+        public double cost() { return 2.0; }
+        public String ingredients() { return "Coffee"; }
 }
-class MilkDecorator extends CoffeeDecorator {
-        public MilkDecorator(Coffee coffee) { super(coffee); }
-        public String getIngredients() { return super.getIngredients() + ", milk"; }
-        public double getCost() { return super.getCost() + 0.5; }
+class MilkDecorator implements Coffee {
+        private final Coffee coffee;
+        public MilkDecorator(Coffee coffee) { this.coffee = coffee; }
+        public double cost() { return coffee.cost() + 0.5; }
+        public String ingredients() { return coffee.ingredients() + ", milk"; }
 }
-class SugarDecorator extends CoffeeDecorator {
-        public SugarDecorator(Coffee coffee) { super(coffee); }
-        public String getIngredients() { return super.getIngredients() + ", sugar"; }
-        public double getCost() { return super.getCost() + 0.3; }
+class SugarDecorator implements Coffee {
+        private final Coffee coffee;
+        public SugarDecorator(Coffee coffee) { this.coffee = coffee; }
+        public double cost() { return coffee.cost() + 0.3; }
+        public String ingredients() { return coffee.ingredients() + ", sugar"; }
 }
 
-Coffee myCoffee = new MilkDecorator(new SugarDecorator(new BasicCoffee()));
-System.out.println(myCoffee.getIngredients() + " costs $" + myCoffee.getCost());
+// Usage
+Coffee coffee = new SimpleCoffee();
+coffee = new MilkDecorator(coffee);
+coffee = new SugarDecorator(coffee);
+System.out.println("Ingredients: " + coffee.ingredients());
+System.out.println("Total cost: " + coffee.cost());
 ```
 
-Decorators allow layering: you can wrap a coffee with multiple decorators in any order.  Each decorator is responsible for adding its own behavior before or after delegating to the wrapped object.  The pattern is also used for adding responsibilities such as logging, caching or validation to service classes.
+Decorators implement the same interface as the component, so they can be composed recursively.  Each decorator adds its own behavior (e.g., additional cost, extra ingredients) and delegates to the wrapped coffee.
 
 ### Composite: transparent vs safe composites
 
-**Transparent vs safe** – The Composite pattern treats individual objects and compositions uniformly.  In the **transparent** version, the component interface defines operations for both leaf and composite objects (e.g., `add()`, `remove()`, `draw()`).  This makes it easy for clients to treat all components uniformly but requires leaves to implement methods that do not make sense.  In the **safe** version, leaf and composite classes have distinct interfaces: the leaf exposes only operations relevant to itself, while the composite adds child management methods.  The safe version avoids meaningless methods on leaves but forces clients to distinguish between leaf and composite types.
+**Transparent composites** – In the transparent approach, the component interface declares all methods for both leaf and composite objects.  Clients can treat all components uniformly, but leaf nodes must implement methods that are not relevant (e.g., `add()`/`remove()` in a file system).
+
+**Safe composites** – The safe approach separates the interfaces for leaves and composites.  The composite interface includes methods for managing children (e.g., `add()`, `remove()`) and the leaf interface includes only the methods relevant to leaves.  Clients must check the type before calling child‑related methods.
 
 **File system example** – The file system is a classic composite.  Files are leaves; directories are composites.  Clients can treat both as `FileSystemNode`s when traversing or calculating sizes.  A safe composite prevents files from having child management methods:
 
@@ -1868,9 +1885,10 @@ class LazyImageProxy implements Image {
 }
 
 Image img = new LazyImageProxy("photo.jpg");
-// Nothing loaded yet
-img.display(); // triggers loading and display
-img.display(); // subsequent calls do not reload
+// First call downloads
+img.display();
+// Second call uses cached RealImage
+img.display();
 ```
 
 **Protection proxy example** – A database connection may be wrapped by a protection proxy that checks user credentials before executing queries:
@@ -2089,8 +2107,45 @@ The `Chess` class overrides the hook `shouldShowScore()` to display the score, w
 ```java
 class Turnstile {
         private State state = State.LOCKED;
-doc.publish(); // publishes
-// doc.archive(); // archives
+        public void coin() {
+                state = state.onCoin();
+        }
+        public void push() {
+                state = state.onPush();
+        }
+        public void setState(State state) { this.state = state; }
+}
+
+enum State {
+        LOCKED {
+                public State onCoin() {
+                        System.out.println("Unlocking");
+                        return UNLOCKED;
+                }
+                public State onPush() {
+                        System.out.println("Locked: please insert coin");
+                        return this;
+                }
+        },
+        UNLOCKED {
+                public State onCoin() {
+                        System.out.println("Coin already inserted");
+                        return this;
+                }
+                public State onPush() {
+                        System.out.println("Dispensing item");
+                        return LOCKED;
+                }
+        };
+
+        public State onCoin() { return this; }
+        public State onPush() { return this; }
+}
+
+Turnstile t = new Turnstile();
+t.push(); // Locked: please insert coin
+t.coin(); // Unlocking
+t.push(); // Dispensing item
 ```
 
 This example demonstrates how the state pattern encapsulates behaviour for each state and controls transitions.
@@ -2135,6 +2190,8 @@ class Aircraft {
 ControlTower tower = new AirportControlTower();
 Aircraft a1 = new Aircraft("Flight A", tower);
 Aircraft a2 = new Aircraft("Flight B", tower);
+tower.addUser(a1);
+tower.addUser(a2);
 a1.requestLanding();
 a2.requestLanding();
 ```
@@ -2181,53 +2238,3 @@ dialog.username.setText("user");
 dialog.password.setText("pass");
 // both fields filled – button enabled automatically
 ```
-
-### Iterator: external vs internal iteration
-
-**External (explicit) iteration** – In earlier examples, our iterator pattern used an explicit `Iterator` object.  The client controlled the iteration with `while (iterator.hasNext())`.  This style gives the client control over the iteration order and the ability to pause or combine iterations.
-
-**Internal iteration** – In contrast, internal iterators (also known as *foreach* or *internal enumerators*) push elements to a provided function.  The client supplies a callback, and the collection controls the iteration.  Java 8’s `forEach()` is an internal iterator:
-
-```java
-class Range implements Iterable<Integer> {
-    private final int start, end;
-    public Range(int start, int end) { this.start = start; this.end = end; }
-    public Iterator<Integer> iterator() {
-        return new Iterator<>() {
-            private int current = start;
-            public boolean hasNext() { return current < end; }
-            public Integer next() { return current++; }
-        };
-    }
-    public void forEach(IntConsumer action) {
-        for (int i = start; i < end; i++) action.accept(i);
-    }
-}
-
-Range range = new Range(0, 5);
-// external iteration
-for (int x : range) System.out.println(x);
-// internal iteration with lambda
-range.forEach(i -> System.out.println("Number " + i));
-```
-
-**Reverse and filtered iterators** – The iterator pattern allows you to implement different traversal strategies without changing the collection.  Here is a custom iterator that traverses a list in reverse:
-
-```java
-class ReverseIterator<T> implements Iterator<T> {
-    private final List<T> list;
-    private int index;
-    public ReverseIterator(List<T> list) { this.list = list; this.index = list.size() - 1; }
-    public boolean hasNext() { return index >= 0; }
-    public T next() { return list.get(index--); }
-}
-
-List<String> items = List.of("a", "b", "c");
-Iterator<String> rev = new ReverseIterator<>(items);
-while (rev.hasNext()) System.out.println(rev.next());
-```
-
-A filtered iterator can skip elements that do not satisfy a predicate.  These variations illustrate that the iterator pattern is not limited to a single forward traversal; it’s a flexible interface for exploring collections.
-
-
-[def]: #iterator-external-vs-internal-iteration
