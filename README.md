@@ -1,4 +1,88 @@
-# Complete Guide to Code Smells, Design Principles and Design Patterns
+# Complete Guide to Code Smells, Design Principles and Design Patterns
+
+## Quick Navigation
+
+Below is a compact table of contents. Click a link to jump to the section.
+
+- [Complete Guide to Code Smells, Design Principles and Design Patterns](#complete-guide-to-code-smells-design-principles-and-design-patterns)
+        - [Quick Navigation](#quick-navigation)
+        - [Introduction](#introduction)
+        - [Part 1 — Code Smells and Their Remedies](#part-1-code-smells-and-their-remedies)
+                - [Overview of Code Smells](#overview-of-code-smells)
+                - [1. Bloaters](#1-bloaters)
+                        - [1.1 Long Method](#11-long-method)
+                        - [1.2 Large Class](#12-large-class)
+                        - [1.3 Primitive Obsession](#13-primitive-obsession)
+                        - [1.4 Long Parameter List](#14-long-parameter-list)
+                        - [1.5 Data Clumps](#15-data-clumps)
+                - [2. Object-Orientation Abusers](#2-object-orientation-abusers)
+                        - [2.1 Switch Statements](#21-switch-statements)
+                        - [2.2 Temporary Field](#22-temporary-field)
+                        - [2.3 Refused Bequest](#23-refused-bequest)
+                        - [2.4 Alternative Classes with Different Interfaces](#24-alternative-classes-with-different-interfaces)
+                - [3. Change Preventers](#3-change-preventers)
+                        - [3.1 Divergent Change](#31-divergent-change)
+                        - [3.2 Shotgun Surgery](#32-shotgun-surgery)
+                        - [3.3 Parallel Inheritance Hierarchies](#33-parallel-inheritance-hierarchies)
+                - [4. Dispensables](#4-dispensables)
+                        - [4.1 Comments](#41-comments)
+                        - [4.2 Duplicate Code](#42-duplicate-code)
+                        - [4.3 Lazy Class](#43-lazy-class)
+                        - [4.4 Data Class](#44-data-class)
+                        - [4.5 Dead Code](#45-dead-code)
+                        - [4.6 Speculative Generality](#46-speculative-generality)
+                - [5. Couplers](#5-couplers)
+                        - [5.1 Feature Envy](#51-feature-envy)
+                        - [5.2 Inappropriate Intimacy](#52-inappropriate-intimacy)
+                        - [5.3 Message Chains](#53-message-chains)
+                        - [5.4 Middle Man](#54-middle-man)
+        - [Part 2 — Design Principles](#part-2-design-principles)
+                - [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+                - [Open-Closed Principle (OCP)](#open-closed-principle-ocp)
+                - [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+                - [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+                - [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+                - [DRY — Don’t Repeat Yourself](#dry--dont-repeat-yourself)
+                - [KISS — Keep It Simple, Stupid](#kiss--keep-it-simple-stupid)
+        - [Part 3 — Creational Design Patterns](#part-3-creational-design-patterns)
+                - [Singleton](#1-singleton)
+                - [Factory Method](#2-factory-method)
+                - [Abstract Factory](#3-abstract-factory)
+                - [Builder](#4-builder)
+                - [Prototype](#5-prototype)
+        - [Part 4 — Structural Design Patterns](#part-4-structural-design-patterns)
+                - [Bridge](#1-bridge)
+                - [Adapter](#2-adapter)
+                - [Decorator](#3-decorator)
+                - [Composite](#4-composite)
+                - [Proxy](#5-proxy)
+        - [Part 5 — Behavioral Design Patterns](#part-5-behavioral-design-patterns)
+                - [Observer](#1-observer)
+                - [Strategy](#2-strategy)
+                - [Template Method](#3-template-method)
+                - [State](#4-state)
+                - [Mediator](#5-mediator)
+                - [Iterator](#6-iterator)
+        - [Conclusion](#conclusion)
+        - [Appendix — Extended Design Pattern Discussion](#appendix-extended-design-pattern-discussion)
+                - [Singleton: variations and best practices](#singleton-variations-and-best-practices)
+                - [Factory Method: advanced usage and variations](#factory-method-advanced-usage-and-variations)
+                - [Abstract Factory: cross-platform design](#abstract-factory-cross-platform-design)
+                - [Builder: telescoping constructors and immutability](#builder-telescoping-constructors-and-immutability)
+                - [Prototype: deep vs shallow copying](#prototype-deep-vs-shallow-copying)
+                - [Bridge: decoupling abstractions and implementations](#bridge-decoupling-abstractions-and-implementations)
+                - [Adapter: class vs object adapters](#adapter-class-vs-object-adapters)
+                - [Decorator: layering behaviours](#decorator-layering-behaviours)
+                - [Composite: transparent vs safe composites](#composite-transparent-vs-safe-composites)
+                - [Proxy: types and real-world analogies](#proxy-types-and-real-world-analogies)
+                - [Observer: push vs pull notifications](#observer-push-vs-pull-notifications)
+                - [Strategy: selecting algorithms at runtime](#strategy-selecting-algorithms-at-runtime)
+                - [Template Method: hooks and customization](#template-method-hooks-and-customization)
+                - [State: enumerations and dynamic transitions](#state-enumerations-and-dynamic-transitions)
+                - [Mediator: centralized communication examples](#mediator-centralized-communication-examples)
+                - [Iterator: external vs internal iteration](#iterator-external-vs-internal-iteration)
+
+---
 
 ## Introduction
 
@@ -28,19 +112,19 @@ A long method tries to handle multiple responsibilities at once.  Such methods a
 // This method does too much: calculates totals, applies tax and discount,
 // updates inventory and prints a report.  It violates SRP and is hard to maintain.
 public class InvoiceService {
-    public void processInvoice(String customerName, double amount, double taxRate,
-                               double discount, String productId, int quantity) {
-        // calculate totals
-        double tax = amount * taxRate;
-        double total = amount + tax - discount;
-        // update inventory
-        int stock = Database.getStock(productId);
-        Database.updateStock(productId, stock - quantity);
-        // print report
-        System.out.println("Customer: " + customerName);
-        System.out.println("Amount: " + amount + ", Tax: " + tax + ", Discount: " + discount);
-        System.out.println("Total due: " + total);
-    }
+        public void processInvoice(String customerName, double amount, double taxRate,
+                                                             double discount, String productId, int quantity) {
+                // calculate totals
+                double tax = amount * taxRate;
+                double total = amount + tax - discount;
+                // update inventory
+                int stock = Database.getStock(productId);
+                Database.updateStock(productId, stock - quantity);
+                // print report
+                System.out.println("Customer: " + customerName);
+                System.out.println("Amount: " + amount + ", Tax: " + tax + ", Discount: " + discount);
+                System.out.println("Total due: " + total);
+        }
 }
 ```
 
@@ -48,34 +132,34 @@ public class InvoiceService {
 
 ```java
 public class InvoiceProcessor {
-    private final InventoryService inventory;
-    private final InvoicePrinter printer;
-    public InvoiceProcessor(InventoryService inventory, InvoicePrinter printer) {
-        this.inventory = inventory;
-        this.printer = printer;
-    }
-    public void process(Invoice invoice) {
-        double total = calculateTotal(invoice);
-        updateInventory(invoice);
-        printer.print(invoice, total);
-    }
-    private double calculateTotal(Invoice invoice) {
-        double subtotal = invoice.lines().stream().mapToDouble(l -> l.price() * l.quantity()).sum();
-        double tax = subtotal * invoice.taxRate();
-        return subtotal + tax - invoice.discount();
-    }
-    private void updateInventory(Invoice invoice) {
-        for (InvoiceLine line : invoice.lines()) {
-            inventory.remove(line.productId(), line.quantity());
+        private final InventoryService inventory;
+        private final InvoicePrinter printer;
+        public InvoiceProcessor(InventoryService inventory, InvoicePrinter printer) {
+                this.inventory = inventory;
+                this.printer = printer;
         }
-    }
+        public void process(Invoice invoice) {
+                double total = calculateTotal(invoice);
+                updateInventory(invoice);
+                printer.print(invoice, total);
+        }
+        private double calculateTotal(Invoice invoice) {
+                double subtotal = invoice.lines().stream().mapToDouble(l -> l.price() * l.quantity()).sum();
+                double tax = subtotal * invoice.taxRate();
+                return subtotal + tax - invoice.discount();
+        }
+        private void updateInventory(Invoice invoice) {
+                for (InvoiceLine line : invoice.lines()) {
+                        inventory.remove(line.productId(), line.quantity());
+                }
+        }
 }
 
 class InvoicePrinter {
-    public void print(Invoice invoice, double total) {
-        System.out.println("Customer: " + invoice.customerName());
-        System.out.println("Total due: " + total);
-    }
+        public void print(Invoice invoice, double total) {
+                System.out.println("Customer: " + invoice.customerName());
+                System.out.println("Total due: " + total);
+        }
 }
 ```
 
@@ -89,18 +173,18 @@ Large classes contain too many fields or methods.  They are hard to understand a
 
 ```java
 public class Account {
-    private List<Transaction> transactions = new ArrayList<>();
-    private String owner;
-    private String email;
-    private double balance;
-    // deposit and withdrawal operations
-    public void deposit(double amount) { /* add transaction */ }
-    public void withdraw(double amount) { /* add transaction */ }
-    public double getBalance() { /* compute current balance */ return balance; }
-    // printing operations
-    public void printStatement() { /* iterate transactions and print */ }
-    public void exportToCsv(String fileName) { /* write transactions to file */ }
-    public void emailStatement() { /* send statement to owner’s email */ }
+        private List<Transaction> transactions = new ArrayList<>();
+        private String owner;
+        private String email;
+        private double balance;
+        // deposit and withdrawal operations
+        public void deposit(double amount) { /* add transaction */ }
+        public void withdraw(double amount) { /* add transaction */ }
+        public double getBalance() { /* compute current balance */ return balance; }
+        // printing operations
+        public void printStatement() { /* iterate transactions and print */ }
+        public void exportToCsv(String fileName) { /* write transactions to file */ }
+        public void emailStatement() { /* send statement to owner’s email */ }
 }
 ```
 
@@ -108,26 +192,26 @@ public class Account {
 
 ```java
 public class BankAccount {
-    private final String owner;
-    private double balance;
-    private final List<Transaction> history = new ArrayList<>();
-    public BankAccount(String owner) { this.owner = owner; }
-    public void deposit(double amount) { balance += amount; history.add(new Transaction("Deposit", amount)); }
-    public void withdraw(double amount) { balance -= amount; history.add(new Transaction("Withdraw", amount)); }
-    public double getBalance() { return balance; }
-    public List<Transaction> getHistory() { return Collections.unmodifiableList(history); }
+        private final String owner;
+        private double balance;
+        private final List<Transaction> history = new ArrayList<>();
+        public BankAccount(String owner) { this.owner = owner; }
+        public void deposit(double amount) { balance += amount; history.add(new Transaction("Deposit", amount)); }
+        public void withdraw(double amount) { balance -= amount; history.add(new Transaction("Withdraw", amount)); }
+        public double getBalance() { return balance; }
+        public List<Transaction> getHistory() { return Collections.unmodifiableList(history); }
 }
 
 public class AccountReporter {
-    public void printStatement(BankAccount account) {
-        System.out.println("Account holder: " + account.owner);
-        for (Transaction t : account.getHistory()) {
-            System.out.println(t.type() + ": " + t.amount());
+        public void printStatement(BankAccount account) {
+                System.out.println("Account holder: " + account.owner);
+                for (Transaction t : account.getHistory()) {
+                        System.out.println(t.type() + ": " + t.amount());
+                }
+                System.out.println("Balance: " + account.getBalance());
         }
-        System.out.println("Balance: " + account.getBalance());
-    }
-    public void export(BankAccount account, String fileName) { /* write CSV */ }
-    public void emailStatement(BankAccount account, String email) { /* send via email */ }
+        public void export(BankAccount account, String fileName) { /* write CSV */ }
+        public void emailStatement(BankAccount account, String email) { /* send via email */ }
 }
 ```
 
@@ -141,13 +225,13 @@ Primitive obsession is the overuse of primitive types (int, double, String) for 
 
 ```java
 public class Order {
-    private String shippingStreet;
-    private String shippingCity;
-    private String shippingZip;
-    private String billingStreet;
-    private String billingCity;
-    private String billingZip;
-    // getters and setters
+        private String shippingStreet;
+        private String shippingCity;
+        private String shippingZip;
+        private String billingStreet;
+        private String billingCity;
+        private String billingZip;
+        // getters and setters
 }
 ```
 
@@ -157,22 +241,22 @@ The code duplicates fields for shipping and billing addresses.  There is no vali
 
 ```java
 public class Address {
-    private final String street;
-    private final String city;
-    private final String zip;
-    public Address(String street, String city, String zip) {
-        if (street == null || city == null || zip == null) throw new IllegalArgumentException("All fields required");
-        this.street = street; this.city = city; this.zip = zip;
-    }
-    // getters
+        private final String street;
+        private final String city;
+        private final String zip;
+        public Address(String street, String city, String zip) {
+                if (street == null || city == null || zip == null) throw new IllegalArgumentException("All fields required");
+                this.street = street; this.city = city; this.zip = zip;
+        }
+        // getters
 }
 
 public class Order {
-    private final Address shippingAddress;
-    private final Address billingAddress;
-    public Order(Address shipping, Address billing) { this.shippingAddress = shipping; this.billingAddress = billing; }
-    public Address getShippingAddress() { return shippingAddress; }
-    public Address getBillingAddress() { return billingAddress; }
+        private final Address shippingAddress;
+        private final Address billingAddress;
+        public Order(Address shipping, Address billing) { this.shippingAddress = shipping; this.billingAddress = billing; }
+        public Address getShippingAddress() { return shippingAddress; }
+        public Address getBillingAddress() { return billingAddress; }
 }
 ```
 
@@ -286,20 +370,20 @@ Each class or function should have one reason to change.  Splitting responsibili
 
 ```java
 class ReportService {
-    public void generateReport(List<Order> orders) {
-        // 1. aggregate data
-        double total = 0;
-        for (Order o : orders) total += o.amount();
-        // 2. format report
-        StringBuilder sb = new StringBuilder();
-        sb.append("Orders\n");
-        for (Order o : orders) sb.append(o.toString()).append("\n");
-        sb.append("Total: ").append(total);
-        // 3. save to file
-        try (FileWriter out = new FileWriter("report.txt")) {
-            out.write(sb.toString());
-        } catch (IOException e) { e.printStackTrace(); }
-    }
+        public void generateReport(List<Order> orders) {
+                // 1. aggregate data
+                double total = 0;
+                for (Order o : orders) total += o.amount();
+                // 2. format report
+                StringBuilder sb = new StringBuilder();
+                sb.append("Orders\n");
+                for (Order o : orders) sb.append(o.toString()).append("\n");
+                sb.append("Total: ").append(total);
+                // 3. save to file
+                try (FileWriter out = new FileWriter("report.txt")) {
+                        out.write(sb.toString());
+                } catch (IOException e) { e.printStackTrace(); }
+        }
 }
 ```
 
@@ -309,23 +393,23 @@ class ReportService {
 
 ```java
 class ReportGenerator {
-    public Report buildReport(List<Order> orders) {
-        double total = orders.stream().mapToDouble(Order::amount).sum();
-        return new Report(orders, total);
-    }
+        public Report buildReport(List<Order> orders) {
+                double total = orders.stream().mapToDouble(Order::amount).sum();
+                return new Report(orders, total);
+        }
 }
 class ReportFormatter {
-    public String format(Report report) {
-        StringBuilder sb = new StringBuilder("Orders\n");
-        for (Order o : report.orders()) sb.append(o.toString()).append("\n");
-        sb.append("Total: ").append(report.total());
-        return sb.toString();
-    }
+        public String format(Report report) {
+                StringBuilder sb = new StringBuilder("Orders\n");
+                for (Order o : report.orders()) sb.append(o.toString()).append("\n");
+                sb.append("Total: ").append(report.total());
+                return sb.toString();
+        }
 }
 class ReportSaver {
-    public void save(String contents, String filename) {
-        try (FileWriter out = new FileWriter(filename)) { out.write(contents); } catch (IOException e) { e.printStackTrace(); }
-    }
+        public void save(String contents, String filename) {
+                try (FileWriter out = new FileWriter(filename)) { out.write(contents); } catch (IOException e) { e.printStackTrace(); }
+        }
 }
 
 ReportGenerator generator = new ReportGenerator();
@@ -347,12 +431,12 @@ Classes should be open for extension but closed for modification.  You should be
 
 ```java
 class PriceCalculator {
-    public double calculatePrice(double basePrice, String customerType) {
-        if (customerType.equals("regular")) return basePrice;
-        if (customerType.equals("vip")) return basePrice * 0.9;
-        if (customerType.equals("employee")) return basePrice * 0.8;
-        throw new IllegalArgumentException("Unknown type");
-    }
+        public double calculatePrice(double basePrice, String customerType) {
+                if (customerType.equals("regular")) return basePrice;
+                if (customerType.equals("vip")) return basePrice * 0.9;
+                if (customerType.equals("employee")) return basePrice * 0.8;
+                throw new IllegalArgumentException("Unknown type");
+        }
 }
 ```
 
@@ -367,9 +451,9 @@ class VIPDiscount implements DiscountStrategy { public double apply(double baseP
 class EmployeeDiscount implements DiscountStrategy { public double apply(double basePrice) { return basePrice * 0.8; } }
 
 class PriceCalculator {
-    private final DiscountStrategy strategy;
-    public PriceCalculator(DiscountStrategy strategy) { this.strategy = strategy; }
-    public double calculate(double basePrice) { return strategy.apply(basePrice); }
+        private final DiscountStrategy strategy;
+        public PriceCalculator(DiscountStrategy strategy) { this.strategy = strategy; }
+        public double calculate(double basePrice) { return strategy.apply(basePrice); }
 }
 
 // adding a new discount type requires adding a new class implementing DiscountStrategy
@@ -391,14 +475,14 @@ Clients should not be forced to depend on interfaces they do not use.  Split “
 
 ```java
 interface Worker {
-    void cook();
-    void clean();
-    void fixCar();
+        void cook();
+        void clean();
+        void fixCar();
 }
 class Chef implements Worker {
-    public void cook() { /* ... */ }
-    public void clean() { /* ... */ }
-    public void fixCar() { throw new UnsupportedOperationException(); }
+        public void cook() { /* ... */ }
+        public void clean() { /* ... */ }
+        public void fixCar() { throw new UnsupportedOperationException(); }
 }
 ```
 
@@ -410,11 +494,11 @@ interface Cleaner { void clean(); }
 interface Mechanic { void fixCar(); }
 
 class Chef implements Cook, Cleaner {
-    public void cook() { /* ... */ }
-    public void clean() { /* ... */ }
+        public void cook() { /* ... */ }
+        public void clean() { /* ... */ }
 }
 class MechanicImpl implements Mechanic {
-    public void fixCar() { /* ... */ }
+        public void fixCar() { /* ... */ }
 }
 ```
 
@@ -426,14 +510,14 @@ High‑level modules should not depend on low‑level modules; both should depen
 
 ```java
 class OrderService {
-    private final EmailNotifier notifier = new EmailNotifier();
-    public void confirmOrder(Order order) {
-        // business logic
-        notifier.sendConfirmation(order);
-    }
+        private final EmailNotifier notifier = new EmailNotifier();
+        public void confirmOrder(Order order) {
+                // business logic
+                notifier.sendConfirmation(order);
+        }
 }
 class EmailNotifier {
-    public void sendConfirmation(Order o) { /* send email */ }
+        public void sendConfirmation(Order o) { /* send email */ }
 }
 ```
 
@@ -447,9 +531,9 @@ class EmailNotifier implements Notifier { public void sendConfirmation(Order o) 
 class SmsNotifier implements Notifier { public void sendConfirmation(Order o) { /* SMS */ } }
 
 class OrderService {
-    private final Notifier notifier;
-    public OrderService(Notifier notifier) { this.notifier = notifier; }
-    public void confirmOrder(Order order) { /* business logic */ notifier.sendConfirmation(order); }
+        private final Notifier notifier;
+        public OrderService(Notifier notifier) { this.notifier = notifier; }
+        public void confirmOrder(Order order) { /* business logic */ notifier.sendConfirmation(order); }
 }
 
 // Usage
@@ -475,7 +559,7 @@ double distance2 = Math.sqrt(Math.pow(xb - xa, 2) + Math.pow(yb - ya, 2));
 
 ```java
 public static double distance(int x1, int y1, int x2, int y2) {
-    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
 double d1 = distance(x1, y1, x2, y2);
@@ -490,9 +574,9 @@ Prefer simple solutions over complex ones.  Avoid over‑engineering.
 
 ```java
 public List<String> sortStrings(List<String> list) {
-    // A complex quicksort implementation with manual partitions
-    // ... 100 lines of code ...
-    return list;
+        // A complex quicksort implementation with manual partitions
+        // ... 100 lines of code ...
+        return list;
 }
 ```
 
@@ -500,8 +584,8 @@ public List<String> sortStrings(List<String> list) {
 
 ```java
 public List<String> sortStrings(List<String> list) {
-    list.sort(Comparator.naturalOrder());
-    return list;
+        list.sort(Comparator.naturalOrder());
+        return list;
 }
 ```
 
@@ -519,12 +603,12 @@ Ensures a class has only one instance and provides a global point of access.
 
 ```java
 public class Configuration {
-    private final Properties props = new Properties();
-    public Configuration() { loadFromFile(); }
-    private void loadFromFile() {
-        // load properties
-    }
-    public String get(String key) { return props.getProperty(key); }
+        private final Properties props = new Properties();
+        public Configuration() { loadFromFile(); }
+        private void loadFromFile() {
+                // load properties
+        }
+        public String get(String key) { return props.getProperty(key); }
 }
 
 // Each client calls new Configuration(), causing multiple loads
@@ -536,12 +620,12 @@ Configuration c2 = new Configuration();
 
 ```java
 public class Configuration {
-    private static final Configuration INSTANCE = new Configuration();
-    private final Properties props;
-    private Configuration() { props = new Properties(); load(); }
-    private void load() { /* load props */ }
-    public static Configuration getInstance() { return INSTANCE; }
-    public String get(String key) { return props.getProperty(key); }
+        private static final Configuration INSTANCE = new Configuration();
+        private final Properties props;
+        private Configuration() { props = new Properties(); load(); }
+        private void load() { /* load props */ }
+        public static Configuration getInstance() { return INSTANCE; }
+        public String get(String key) { return props.getProperty(key); }
 }
 
 Configuration conf = Configuration.getInstance();
@@ -555,18 +639,18 @@ Defines an interface for creating an object but lets subclasses decide which cla
 
 ```java
 class TransportService {
-    public void planDelivery(String type) {
-        if (type.equals("truck")) {
-            Truck t = new Truck();
-            t.deliver();
-        } else if (type.equals("ship")) {
-            Ship s = new Ship();
-            s.deliver();
-        } else if (type.equals("plane")) {
-            Plane p = new Plane();
-            p.deliver();
+        public void planDelivery(String type) {
+                if (type.equals("truck")) {
+                        Truck t = new Truck();
+                        t.deliver();
+                } else if (type.equals("ship")) {
+                        Ship s = new Ship();
+                        s.deliver();
+                } else if (type.equals("plane")) {
+                        Plane p = new Plane();
+                        p.deliver();
+                }
         }
-    }
 }
 ```
 
@@ -574,11 +658,11 @@ class TransportService {
 
 ```java
 abstract class Logistics {
-    public void planDelivery() {
-        Transport transport = createTransport();
-        transport.deliver();
-    }
-    protected abstract Transport createTransport();
+        public void planDelivery() {
+                Transport transport = createTransport();
+                transport.deliver();
+        }
+        protected abstract Transport createTransport();
 }
 interface Transport { void deliver(); }
 class Truck implements Transport { public void deliver() { System.out.println("Deliver by truck"); } }
@@ -601,20 +685,20 @@ Creates families of related objects without specifying their concrete classes.  
 
 ```java
 class UIClient {
-    public void render(String os) {
-        Button btn;
-        TextField tf;
-        if (os.equals("Windows")) {
-            btn = new WindowsButton();
-            tf  = new WindowsTextField();
-        } else if (os.equals("Mac")) {
-            btn = new MacButton();
-            tf  = new MacTextField();
-        } else {
-            throw new IllegalArgumentException();
+        public void render(String os) {
+                Button btn;
+                TextField tf;
+                if (os.equals("Windows")) {
+                        btn = new WindowsButton();
+                        tf  = new WindowsTextField();
+                } else if (os.equals("Mac")) {
+                        btn = new MacButton();
+                        tf  = new MacTextField();
+                } else {
+                        throw new IllegalArgumentException();
+                }
+                btn.render(); tf.render();
         }
-        btn.render(); tf.render();
-    }
 }
 ```
 
@@ -629,26 +713,26 @@ class MacButton implements Button { public void render() { System.out.println("M
 class MacTextField implements TextField { public void render() { System.out.println("Mac TextField"); } }
 
 interface UIFactory {
-    Button createButton();
-    TextField createTextField();
+        Button createButton();
+        TextField createTextField();
 }
 class WindowsFactory implements UIFactory {
-    public Button createButton() { return new WindowsButton(); }
-    public TextField createTextField() { return new WindowsTextField(); }
+        public Button createButton() { return new WindowsButton(); }
+        public TextField createTextField() { return new WindowsTextField(); }
 }
 class MacFactory implements UIFactory {
-    public Button createButton() { return new MacButton(); }
-    public TextField createTextField() { return new MacTextField(); }
+        public Button createButton() { return new MacButton(); }
+        public TextField createTextField() { return new MacTextField(); }
 }
 
 class UIClient {
-    private UIFactory factory;
-    public UIClient(UIFactory factory) { this.factory = factory; }
-    public void render() {
-        Button btn = factory.createButton();
-        TextField tf = factory.createTextField();
-        btn.render(); tf.render();
-    }
+        private UIFactory factory;
+        public UIClient(UIFactory factory) { this.factory = factory; }
+        public void render() {
+                Button btn = factory.createButton();
+                TextField tf = factory.createTextField();
+                btn.render(); tf.render();
+        }
 }
 
 // Client chooses a factory based on the current OS
@@ -664,17 +748,17 @@ Separates the construction of a complex object from its representation.  Builder
 
 ```java
 public class Meal {
-    private final String mainDish;
-    private final String side;
-    private final String drink;
-    private final String dessert;
-    public Meal(String mainDish, String side, String drink, String dessert) {
-        this.mainDish = mainDish;
-        this.side = side;
-        this.drink = drink;
-        this.dessert = dessert;
-    }
-    // getters omitted
+        private final String mainDish;
+        private final String side;
+        private final String drink;
+        private final String dessert;
+        public Meal(String mainDish, String side, String drink, String dessert) {
+                this.mainDish = mainDish;
+                this.side = side;
+                this.drink = drink;
+                this.dessert = dessert;
+        }
+        // getters omitted
 }
 
 // Client must remember parameter order
@@ -685,28 +769,28 @@ Meal meal = new Meal("Steak", "Fries", "Coke", "Ice Cream");
 
 ```java
 public class Meal {
-    private final String mainDish;
-    private final String side;
-    private final String drink;
-    private final String dessert;
-    private Meal(Builder b) {
-        this.mainDish = b.mainDish;
-        this.side = b.side;
-        this.drink = b.drink;
-        this.dessert = b.dessert;
-    }
-    public static class Builder {
-        private String mainDish;
-        private String side;
-        private String drink;
-        private String dessert;
-        public Builder mainDish(String value) { this.mainDish = value; return this; }
-        public Builder side(String value) { this.side = value; return this; }
-        public Builder drink(String value) { this.drink = value; return this; }
-        public Builder dessert(String value) { this.dessert = value; return this; }
-        public Meal build() { return new Meal(this); }
-    }
-    public String toString() { return mainDish + ", " + side + ", " + drink + ", " + dessert; }
+        private final String mainDish;
+        private final String side;
+        private final String drink;
+        private final String dessert;
+        private Meal(Builder b) {
+                this.mainDish = b.mainDish;
+                this.side = b.side;
+                this.drink = b.drink;
+                this.dessert = b.dessert;
+        }
+        public static class Builder {
+                private String mainDish;
+                private String side;
+                private String drink;
+                private String dessert;
+                public Builder mainDish(String value) { this.mainDish = value; return this; }
+                public Builder side(String value) { this.side = value; return this; }
+                public Builder drink(String value) { this.drink = value; return this; }
+                public Builder dessert(String value) { this.dessert = value; return this; }
+                public Meal build() { return new Meal(this); }
+        }
+        public String toString() { return mainDish + ", " + side + ", " + drink + ", " + dessert; }
 }
 
 // Client uses builder for clarity
@@ -722,9 +806,9 @@ Creates new objects by copying an existing object (the prototype) rather than in
 
 ```java
 abstract class Shape implements Cloneable {
-    int x, y;
-    String color;
-    public Shape clone() throws CloneNotSupportedException { return (Shape) super.clone(); }
+        int x, y;
+        String color;
+        public Shape clone() throws CloneNotSupportedException { return (Shape) super.clone(); }
 }
 class Rectangle extends Shape { int width, height; }
 class Circle extends Shape { int radius; }
@@ -740,14 +824,14 @@ Rectangle copy = (Rectangle) original.clone();
 ```java
 interface Prototype<T> { T copy(); }
 class Rectangle implements Prototype<Rectangle> {
-    int width, height; String color;
-    public Rectangle copy() {
-        Rectangle clone = new Rectangle();
-        clone.width = this.width;
-        clone.height = this.height;
-        clone.color = this.color;
-        return clone;
-    }
+        int width, height; String color;
+        public Rectangle copy() {
+                Rectangle clone = new Rectangle();
+                clone.width = this.width;
+                clone.height = this.height;
+                clone.color = this.color;
+                return clone;
+        }
 }
 Rectangle original = new Rectangle();
 Rectangle clone = original.copy();
@@ -770,30 +854,30 @@ Splits a large class or set of closely related classes into two separate hierarc
 ```java
 // Implementor interface
 interface Device {
-    void enable(); void disable(); boolean isEnabled(); int getVolume(); void setVolume(int vol);
+        void enable(); void disable(); boolean isEnabled(); int getVolume(); void setVolume(int vol);
 }
 class TV implements Device {
-    private boolean on; private int volume;
-    public void enable() { on = true; }
-    public void disable() { on = false; }
-    public boolean isEnabled() { return on; }
-    public int getVolume() { return volume; }
-    public void setVolume(int vol) { volume = vol; }
+        private boolean on; private int volume;
+        public void enable() { on = true; }
+        public void disable() { on = false; }
+        public boolean isEnabled() { return on; }
+        public int getVolume() { return volume; }
+        public void setVolume(int vol) { volume = vol; }
 }
 class Radio implements Device { /* similar implementation */ }
 
 // Abstraction hierarchy
 abstract class Remote {
-    protected Device device;
-    protected Remote(Device device) { this.device = device; }
-    public void togglePower() { if (device.isEnabled()) device.disable(); else device.enable(); }
-    public void volumeUp() { device.setVolume(device.getVolume() + 10); }
-    public void volumeDown() { device.setVolume(device.getVolume() - 10); }
+        protected Device device;
+        protected Remote(Device device) { this.device = device; }
+        public void togglePower() { if (device.isEnabled()) device.disable(); else device.enable(); }
+        public void volumeUp() { device.setVolume(device.getVolume() + 10); }
+        public void volumeDown() { device.setVolume(device.getVolume() - 10); }
 }
 class BasicRemote extends Remote { public BasicRemote(Device device) { super(device); } }
 class AdvancedRemote extends Remote {
-    public AdvancedRemote(Device device) { super(device); }
-    public void mute() { device.setVolume(0); }
+        public AdvancedRemote(Device device) { super(device); }
+        public void mute() { device.setVolume(0); }
 }
 
 // Client code
@@ -811,19 +895,19 @@ Allows objects with incompatible interfaces to collaborate by wrapping an existi
 
 ```java
 class XmlReport {
-    public String getXml() { return "<report>...</report>"; }
+        public String getXml() { return "<report>...</report>"; }
 }
 interface JsonReport { String getJson(); }
 
 // Adapter that converts XML to JSON
 class XmlToJsonAdapter implements JsonReport {
-    private final XmlReport xmlReport;
-    public XmlToJsonAdapter(XmlReport xmlReport) { this.xmlReport = xmlReport; }
-    public String getJson() {
-        String xml = xmlReport.getXml();
-        // convert xml to json (simplified)
-        return "{\"report\":\"converted\"}";
-    }
+        private final XmlReport xmlReport;
+        public XmlToJsonAdapter(XmlReport xmlReport) { this.xmlReport = xmlReport; }
+        public String getJson() {
+                String xml = xmlReport.getXml();
+                // convert xml to json (simplified)
+                return "{\"report\":\"converted\"}";
+        }
 }
 
 // Client using JSON interface
@@ -842,26 +926,26 @@ Dynamically adds additional responsibilities to objects by wrapping them.  Decor
 ```java
 interface Notifier { void send(String message); }
 class SimpleNotifier implements Notifier {
-    public void send(String message) { System.out.println("Sending: " + message); }
+        public void send(String message) { System.out.println("Sending: " + message); }
 }
 abstract class NotifierDecorator implements Notifier {
-    protected final Notifier wrappee;
-    public NotifierDecorator(Notifier wrappee) { this.wrappee = wrappee; }
-    public void send(String message) { wrappee.send(message); }
+        protected final Notifier wrappee;
+        public NotifierDecorator(Notifier wrappee) { this.wrappee = wrappee; }
+        public void send(String message) { wrappee.send(message); }
 }
 class LoggingDecorator extends NotifierDecorator {
-    public LoggingDecorator(Notifier wrappee) { super(wrappee); }
-    public void send(String message) {
-        System.out.println("Logging message: " + message);
-        super.send(message);
-    }
+        public LoggingDecorator(Notifier wrappee) { super(wrappee); }
+        public void send(String message) {
+                System.out.println("Logging message: " + message);
+                super.send(message);
+        }
 }
 class SmsDecorator extends NotifierDecorator {
-    public SmsDecorator(Notifier wrappee) { super(wrappee); }
-    public void send(String message) {
-        super.send(message);
-        System.out.println("Sending SMS: " + message);
-    }
+        public SmsDecorator(Notifier wrappee) { super(wrappee); }
+        public void send(String message) {
+                super.send(message);
+                System.out.println("Sending SMS: " + message);
+        }
 }
 // Compose decorators as needed
 Notifier notifier = new SmsDecorator(new LoggingDecorator(new SimpleNotifier()));
@@ -878,25 +962,25 @@ Composes objects into tree structures so that clients can work with individual o
 
 ```java
 interface Graphic {
-    void draw();
-    void move(int dx, int dy);
+        void draw();
+        void move(int dx, int dy);
 }
 class Dot implements Graphic {
-    int x, y;
-    public Dot(int x, int y) { this.x = x; this.y = y; }
-    public void draw() { System.out.println("Draw dot at (" + x + "," + y + ")"); }
-    public void move(int dx, int dy) { x += dx; y += dy; }
+        int x, y;
+        public Dot(int x, int y) { this.x = x; this.y = y; }
+        public void draw() { System.out.println("Draw dot at (" + x + "," + y + ")"); }
+        public void move(int dx, int dy) { x += dx; y += dy; }
 }
 class Circle extends Dot {
-    int radius;
-    public Circle(int x, int y, int radius) { super(x, y); this.radius = radius; }
-    public void draw() { System.out.println("Draw circle at (" + x + "," + y + ") radius " + radius); }
+        int radius;
+        public Circle(int x, int y, int radius) { super(x, y); this.radius = radius; }
+        public void draw() { System.out.println("Draw circle at (" + x + "," + y + ") radius " + radius); }
 }
 class CompoundGraphic implements Graphic {
-    private final List<Graphic> children = new ArrayList<>();
-    public void add(Graphic child) { children.add(child); }
-    public void draw() { for (Graphic child : children) child.draw(); }
-    public void move(int dx, int dy) { for (Graphic child : children) child.move(dx, dy); }
+        private final List<Graphic> children = new ArrayList<>();
+        public void add(Graphic child) { children.add(child); }
+        public void draw() { for (Graphic child : children) child.draw(); }
+        public void move(int dx, int dy) { for (Graphic child : children) child.move(dx, dy); }
 }
 
 CompoundGraphic picture = new CompoundGraphic();
@@ -916,13 +1000,13 @@ Provides a placeholder to control access to another object, adding behavior such
 
 ```java
 interface Image {
-    void display();
+        void display();
 }
 class RealImage implements Image {
-    private final String url;
-    public RealImage(String url) { this.url = url; loadFromNetwork(); }
-    private void loadFromNetwork() { System.out.println("Downloading " + url); }
-    public void display() { System.out.println("Displaying " + url); }
+        private final String url;
+        public RealImage(String url) { this.url = url; loadFromNetwork(); }
+        private void loadFromNetwork() { System.out.println("Downloading " + url); }
+        public void display() { System.out.println("Displaying " + url); }
 }
 ```
 
@@ -930,13 +1014,13 @@ class RealImage implements Image {
 
 ```java
 class ImageProxy implements Image {
-    private final String url;
-    private RealImage realImage;
-    public ImageProxy(String url) { this.url = url; }
-    public void display() {
-        if (realImage == null) realImage = new RealImage(url);
-        realImage.display();
-    }
+        private final String url;
+        private RealImage realImage;
+        public ImageProxy(String url) { this.url = url; }
+        public void display() {
+                if (realImage == null) realImage = new RealImage(url);
+                realImage.display();
+        }
 }
 
 Image image = new ImageProxy("http://example.com/img.jpg");
@@ -961,13 +1045,13 @@ Establishes a one‑to‑many dependency between objects so that when one object
 ```java
 // Without Observer, the agency manually notifies each subscriber
 class NewsAgency {
-    private final List<Subscriber> subscribers = new ArrayList<>();
-    public void publishStory(String story) {
-        for (Subscriber s : subscribers) {
-            s.update(story);
+        private final List<Subscriber> subscribers = new ArrayList<>();
+        public void publishStory(String story) {
+                for (Subscriber s : subscribers) {
+                        s.update(story);
+                }
         }
-    }
-    public void addSubscriber(Subscriber s) { subscribers.add(s); }
+        public void addSubscriber(Subscriber s) { subscribers.add(s); }
 }
 interface Subscriber { void update(String story); }
 ```
@@ -977,22 +1061,22 @@ interface Subscriber { void update(String story); }
 ```java
 interface Observer { void update(String data); }
 interface Subject {
-    void attach(Observer o);
-    void detach(Observer o);
-    void notifyObservers();
+        void attach(Observer o);
+        void detach(Observer o);
+        void notifyObservers();
 }
 class NewsAgency implements Subject {
-    private final List<Observer> observers = new ArrayList<>();
-    private String latestNews;
-    public void attach(Observer o) { observers.add(o); }
-    public void detach(Observer o) { observers.remove(o); }
-    public void publishNews(String news) { this.latestNews = news; notifyObservers(); }
-    public void notifyObservers() { for (Observer o : observers) o.update(latestNews); }
+        private final List<Observer> observers = new ArrayList<>();
+        private String latestNews;
+        public void attach(Observer o) { observers.add(o); }
+        public void detach(Observer o) { observers.remove(o); }
+        public void publishNews(String news) { this.latestNews = news; notifyObservers(); }
+        public void notifyObservers() { for (Observer o : observers) o.update(latestNews); }
 }
 class Reader implements Observer {
-    private final String name;
-    public Reader(String name) { this.name = name; }
-    public void update(String news) { System.out.println(name + " received: " + news); }
+        private final String name;
+        public Reader(String name) { this.name = name; }
+        public void update(String news) { System.out.println(name + " received: " + news); }
 }
 
 NewsAgency agency = new NewsAgency();
@@ -1011,13 +1095,13 @@ Defines a family of algorithms, encapsulates each one, and makes them interchang
 
 ```java
 public void applyFilter(String type, BufferedImage img) {
-    if (type.equals("grayscale")) {
-        // convert img to grayscale
-    } else if (type.equals("sepia")) {
-        // apply sepia tone
-    } else if (type.equals("invert")) {
-        // invert colors
-    }
+        if (type.equals("grayscale")) {
+                // convert img to grayscale
+        } else if (type.equals("sepia")) {
+                // apply sepia tone
+        } else if (type.equals("invert")) {
+                // invert colors
+        }
 }
 ```
 
@@ -1030,9 +1114,9 @@ class SepiaFilter implements FilterStrategy    { public void apply(BufferedImage
 class InvertFilter implements FilterStrategy   { public void apply(BufferedImage img) { /* invert logic */ } }
 
 class ImageProcessor {
-    private FilterStrategy strategy;
-    public void setStrategy(FilterStrategy strategy) { this.strategy = strategy; }
-    public void process(BufferedImage img) { strategy.apply(img); }
+        private FilterStrategy strategy;
+        public void setStrategy(FilterStrategy strategy) { this.strategy = strategy; }
+        public void process(BufferedImage img) { strategy.apply(img); }
 }
 // Usage
 ImageProcessor processor = new ImageProcessor();
@@ -1048,13 +1132,13 @@ Defines the skeleton of an algorithm in an operation, deferring some steps to su
 
 ```java
 class CsvDataMiner {
-    public void mine(String path) {
-        readCsv(path); parseCsv(); analyze(); writeReport();
-    }
-    void readCsv(String path) { /* ... */ }
-    void parseCsv() { /* ... */ }
-    void analyze() { /* generic analysis */ }
-    void writeReport() { /* ... */ }
+        public void mine(String path) {
+                readCsv(path); parseCsv(); analyze(); writeReport();
+        }
+        void readCsv(String path) { /* ... */ }
+        void parseCsv() { /* ... */ }
+        void analyze() { /* generic analysis */ }
+        void writeReport() { /* ... */ }
 }
 class JsonDataMiner { /* similar code but reads JSON */ }
 ```
@@ -1063,24 +1147,24 @@ class JsonDataMiner { /* similar code but reads JSON */ }
 
 ```java
 abstract class DataMiner {
-    public final void mine(String path) {
-        openFile(path);
-        extractData();
-        analyzeData();
-        sendReport();
-    }
-    protected abstract void openFile(String path);
-    protected abstract void extractData();
-    protected void analyzeData() { System.out.println("Analyzing data"); }
-    protected void sendReport() { System.out.println("Sending report"); }
+        public final void mine(String path) {
+                openFile(path);
+                extractData();
+                analyzeData();
+                sendReport();
+        }
+        protected abstract void openFile(String path);
+        protected abstract void extractData();
+        protected void analyzeData() { System.out.println("Analyzing data"); }
+        protected void sendReport() { System.out.println("Sending report"); }
 }
 class CsvDataMiner extends DataMiner {
-    protected void openFile(String path) { System.out.println("Opening CSV: " + path); }
-    protected void extractData() { System.out.println("Parsing CSV data"); }
+        protected void openFile(String path) { System.out.println("Opening CSV: " + path); }
+        protected void extractData() { System.out.println("Parsing CSV data"); }
 }
 class JsonDataMiner extends DataMiner {
-    protected void openFile(String path) { System.out.println("Opening JSON: " + path); }
-    protected void extractData() { System.out.println("Parsing JSON data"); }
+        protected void openFile(String path) { System.out.println("Opening JSON: " + path); }
+        protected void extractData() { System.out.println("Parsing JSON data"); }
 }
 
 DataMiner miner = new CsvDataMiner();
@@ -1095,18 +1179,18 @@ Allows an object to change its behavior when its internal state changes.  The ob
 
 ```java
 class VendingMachine {
-    private String state = "idle";
-    public void insertCoin() {
-        if (state.equals("idle")) { state = "hasMoney"; }
-        else System.out.println("Cannot insert coin now");
-    }
-    public void pressButton() {
-        if (state.equals("hasMoney")) { state = "dispensing"; dispense(); }
-        else System.out.println("Please insert coin");
-    }
-    private void dispense() {
-        System.out.println("Dispensing item"); state = "idle";
-    }
+        private String state = "idle";
+        public void insertCoin() {
+                if (state.equals("idle")) { state = "hasMoney"; }
+                else System.out.println("Cannot insert coin now");
+        }
+        public void pressButton() {
+                if (state.equals("hasMoney")) { state = "dispensing"; dispense(); }
+                else System.out.println("Please insert coin");
+        }
+        private void dispense() {
+                System.out.println("Dispensing item"); state = "idle";
+        }
 }
 ```
 
@@ -1114,36 +1198,36 @@ class VendingMachine {
 
 ```java
 interface VMState {
-    void insertCoin();
-    void pressButton();
+        void insertCoin();
+        void pressButton();
 }
 class IdleState implements VMState {
-    private final VendingMachine vm;
-    public IdleState(VendingMachine vm) { this.vm = vm; }
-    public void insertCoin() { System.out.println("Coin inserted"); vm.setState(vm.getHasMoneyState()); }
-    public void pressButton() { System.out.println("Insert coin first"); }
+        private final VendingMachine vm;
+        public IdleState(VendingMachine vm) { this.vm = vm; }
+        public void insertCoin() { System.out.println("Coin inserted"); vm.setState(vm.getHasMoneyState()); }
+        public void pressButton() { System.out.println("Insert coin first"); }
 }
 class HasMoneyState implements VMState {
-    private final VendingMachine vm;
-    public HasMoneyState(VendingMachine vm) { this.vm = vm; }
-    public void insertCoin() { System.out.println("Already have coin"); }
-    public void pressButton() { System.out.println("Dispensing"); vm.setState(vm.getIdleState()); }
+        private final VendingMachine vm;
+        public HasMoneyState(VendingMachine vm) { this.vm = vm; }
+        public void insertCoin() { System.out.println("Already have coin"); }
+        public void pressButton() { System.out.println("Dispensing"); vm.setState(vm.getIdleState()); }
 }
 
 class VendingMachine {
-    private final VMState idleState;
-    private final VMState hasMoneyState;
-    private VMState state;
-    public VendingMachine() {
-        idleState = new IdleState(this);
-        hasMoneyState = new HasMoneyState(this);
-        state = idleState;
-    }
-    public void setState(VMState state) { this.state = state; }
-    public VMState getIdleState() { return idleState; }
-    public VMState getHasMoneyState() { return hasMoneyState; }
-    public void insertCoin() { state.insertCoin(); }
-    public void pressButton() { state.pressButton(); }
+        private final VMState idleState;
+        private final VMState hasMoneyState;
+        private VMState state;
+        public VendingMachine() {
+                idleState = new IdleState(this);
+                hasMoneyState = new HasMoneyState(this);
+                state = idleState;
+        }
+        public void setState(VMState state) { this.state = state; }
+        public VMState getIdleState() { return idleState; }
+        public VMState getHasMoneyState() { return hasMoneyState; }
+        public void insertCoin() { state.insertCoin(); }
+        public void pressButton() { state.pressButton(); }
 }
 
 VendingMachine vm = new VendingMachine();
@@ -1161,14 +1245,14 @@ Reduces chaotic dependencies between objects.  Components send messages through 
 
 ```java
 class Participant {
-    private final String name;
-    private final List<Participant> others;
-    public Participant(String name) { this.name = name; this.others = new ArrayList<>(); }
-    public void addParticipant(Participant p) { others.add(p); }
-    public void send(String msg) {
-        for (Participant p : others) p.receive(name + ": " + msg);
-    }
-    public void receive(String msg) { System.out.println(msg); }
+        private final String name;
+        private final List<Participant> others;
+        public Participant(String name) { this.name = name; this.others = new ArrayList<>(); }
+        public void addParticipant(Participant p) { others.add(p); }
+        public void send(String msg) {
+                for (Participant p : others) p.receive(name + ": " + msg);
+        }
+        public void receive(String msg) { System.out.println(msg); }
 }
 ```
 
@@ -1177,21 +1261,21 @@ class Participant {
 ```java
 interface ChatMediator { void sendMessage(String msg, Participant user); }
 class ChatRoom implements ChatMediator {
-    private final List<Participant> participants = new ArrayList<>();
-    public void addUser(Participant user) { participants.add(user); }
-    public void sendMessage(String msg, Participant user) {
-        for (Participant p : participants) {
-            if (p != user) p.receive(user.getName() + ": " + msg);
+        private final List<Participant> participants = new ArrayList<>();
+        public void addUser(Participant user) { participants.add(user); }
+        public void sendMessage(String msg, Participant user) {
+                for (Participant p : participants) {
+                        if (p != user) p.receive(user.getName() + ": " + msg);
+                }
         }
-    }
 }
 class Participant {
-    private final String name;
-    private final ChatMediator chat;
-    public Participant(String name, ChatMediator chat) { this.name = name; this.chat = chat; }
-    public String getName() { return name; }
-    public void send(String msg) { chat.sendMessage(msg, this); }
-    public void receive(String msg) { System.out.println(msg); }
+        private final String name;
+        private final ChatMediator chat;
+        public Participant(String name, ChatMediator chat) { this.name = name; this.chat = chat; }
+        public String getName() { return name; }
+        public void send(String msg) { chat.sendMessage(msg, this); }
+        public void receive(String msg) { System.out.println(msg); }
 }
 
 ChatMediator chatRoom = new ChatRoom();
@@ -1211,14 +1295,14 @@ Provides a way to access the elements of an aggregate object sequentially withou
 
 ```java
 class BookCollection {
-    private Book[] books;
-    public Book get(int index) { return books[index]; }
-    public int size() { return books.length; }
+        private Book[] books;
+        public Book get(int index) { return books[index]; }
+        public int size() { return books.length; }
 }
 // Client code must know how to loop through the array
 for (int i = 0; i < collection.size(); i++) {
-    Book b = collection.get(i);
-    System.out.println(b.getTitle());
+        Book b = collection.get(i);
+        System.out.println(b.getTitle());
 }
 ```
 
@@ -1228,15 +1312,15 @@ for (int i = 0; i < collection.size(); i++) {
 interface Iterator<T> { boolean hasNext(); T next(); }
 interface Aggregate<T> { Iterator<T> createIterator(); }
 class BookCollection implements Aggregate<Book> {
-    private final List<Book> books = new ArrayList<>();
-    public void add(Book b) { books.add(b); }
-    public Iterator<Book> createIterator() {
-        return new Iterator<>() {
-            private int index = 0;
-            public boolean hasNext() { return index < books.size(); }
-            public Book next() { return books.get(index++); }
-        };
-    }
+        private final List<Book> books = new ArrayList<>();
+        public void add(Book b) { books.add(b); }
+        public Iterator<Book> createIterator() {
+                return new Iterator<>() {
+                        private int index = 0;
+                        public boolean hasNext() { return index < books.size(); }
+                        public Book next() { return books.get(index++); }
+                };
+        }
 }
 
 BookCollection collection = new BookCollection();
@@ -1244,7 +1328,7 @@ collection.add(new Book("Design Patterns"));
 collection.add(new Book("Refactoring"));
 Iterator<Book> iter = collection.createIterator();
 while (iter.hasNext()) {
-    System.out.println(iter.next().getTitle());
+        System.out.println(iter.next().getTitle());
 }
 ```
 
@@ -1268,18 +1352,18 @@ The previous sections introduced each design pattern with a problem scenario and
 
 ```java
 public class LazySingleton {
-    private static volatile LazySingleton instance;
-    private LazySingleton() {} // private constructor
-    public static LazySingleton getInstance() {
-        if (instance == null) {
-            synchronized (LazySingleton.class) {
+        private static volatile LazySingleton instance;
+        private LazySingleton() {} // private constructor
+        public static LazySingleton getInstance() {
                 if (instance == null) {
-                    instance = new LazySingleton();
+                        synchronized (LazySingleton.class) {
+                                if (instance == null) {
+                                        instance = new LazySingleton();
+                                }
+                        }
                 }
-            }
+                return instance;
         }
-        return instance;
-    }
 }
 
 // Usage – threads safely obtain the single instance
@@ -1292,10 +1376,10 @@ The `volatile` keyword prevents instruction reordering, ensuring that once an in
 
 ```java
 public enum EnumSingleton {
-    INSTANCE;
-    public void doSomething() {
-        System.out.println("Doing something");
-    }
+        INSTANCE;
+        public void doSomething() {
+                System.out.println("Doing something");
+        }
 }
 
 EnumSingleton singleton = EnumSingleton.INSTANCE;
@@ -1312,25 +1396,25 @@ Enums avoid the complexities of double‑checked locking and protect against mul
 
 ```java
 abstract class DocumentApp {
-    public Document newDocument(String type) {
-        Document doc = createDocument(type);
-        doc.open();
-        return doc;
-    }
-    protected abstract Document createDocument(String type);
+        public Document newDocument(String type) {
+                Document doc = createDocument(type);
+                doc.open();
+                return doc;
+        }
+        protected abstract Document createDocument(String type);
 }
 interface Document { void open(); }
 class TextDocument implements Document { public void open() { System.out.println("Opening text doc"); } }
 class SpreadsheetDocument implements Document { public void open() { System.out.println("Opening spreadsheet doc"); } }
 
 class OfficeApp extends DocumentApp {
-    protected Document createDocument(String type) {
-        return switch (type) {
-            case "text" -> new TextDocument();
-            case "sheet" -> new SpreadsheetDocument();
-            default -> throw new IllegalArgumentException("Unknown type " + type);
-        };
-    }
+        protected Document createDocument(String type) {
+                return switch (type) {
+                        case "text" -> new TextDocument();
+                        case "sheet" -> new SpreadsheetDocument();
+                        default -> throw new IllegalArgumentException("Unknown type " + type);
+                };
+        }
 }
 
 DocumentApp app = new OfficeApp();
@@ -1347,19 +1431,19 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 class ShapeFactory {
-    private final Map<String, Supplier<Shape>> registry;
-    public ShapeFactory() {
-        registry = Map.of(
-            "circle", Circle::new,
-            "square", Square::new,
-            "triangle", Triangle::new
-        );
-    }
-    public Shape create(String type) {
-        Supplier<Shape> s = registry.get(type);
-        if (s == null) throw new IllegalArgumentException("Unknown shape");
-        return s.get();
-    }
+        private final Map<String, Supplier<Shape>> registry;
+        public ShapeFactory() {
+                registry = Map.of(
+                        "circle", Circle::new,
+                        "square", Square::new,
+                        "triangle", Triangle::new
+                );
+        }
+        public Shape create(String type) {
+                Supplier<Shape> s = registry.get(type);
+                if (s == null) throw new IllegalArgumentException("Unknown shape");
+                return s.get();
+        }
 }
 interface Shape { void draw(); }
 class Circle implements Shape { public void draw() { System.out.println("Drawing circle"); } }
@@ -1384,14 +1468,14 @@ This lambda‑based factory is easy to extend: just add a new entry to the `Map`
 Button button;
 Panel panel;
 if (os.equals("Windows")) {
-    button = new WinButton();
-    panel  = new WinPanel();
+        button = new WinButton();
+        panel  = new WinPanel();
 } else if (os.equals("Mac")) {
-    button = new MacButton();
-    panel  = new MacPanel();
+        button = new MacButton();
+        panel  = new MacPanel();
 } else {
-    button = new GtkButton();
-    panel  = new GtkPanel();
+        button = new GtkButton();
+        panel  = new GtkPanel();
 }
 button.render(); panel.render();
 ```
@@ -1409,30 +1493,30 @@ class GtkButton implements Button { public void render() { System.out.println("G
 class GtkPanel  implements Panel  { public void render() { System.out.println("Gtk panel");  } }
 
 interface UIFactory {
-    Button createButton();
-    Panel createPanel();
+        Button createButton();
+        Panel createPanel();
 }
 class WinFactory implements UIFactory {
-    public Button createButton() { return new WinButton(); }
-    public Panel  createPanel()  { return new WinPanel();  }
+        public Button createButton() { return new WinButton(); }
+        public Panel  createPanel()  { return new WinPanel();  }
 }
 class MacFactory implements UIFactory {
-    public Button createButton() { return new MacButton(); }
-    public Panel  createPanel()  { return new MacPanel();  }
+        public Button createButton() { return new MacButton(); }
+        public Panel  createPanel()  { return new MacPanel();  }
 }
 class GtkFactory implements UIFactory {
-    public Button createButton() { return new GtkButton(); }
-    public Panel  createPanel()  { return new GtkPanel();  }
+        public Button createButton() { return new GtkButton(); }
+        public Panel  createPanel()  { return new GtkPanel();  }
 }
 
 class DrawingApp {
-    private final UIFactory factory;
-    public DrawingApp(UIFactory factory) { this.factory = factory; }
-    public void renderUI() {
-        Button b = factory.createButton();
-        Panel  p = factory.createPanel();
-        b.render(); p.render();
-    }
+        private final UIFactory factory;
+        public DrawingApp(UIFactory factory) { this.factory = factory; }
+        public void renderUI() {
+                Button b = factory.createButton();
+                Panel  p = factory.createPanel();
+                b.render(); p.render();
+        }
 }
 
 DrawingApp app = new DrawingApp(new MacFactory());
@@ -1447,28 +1531,28 @@ Adding a dark mode theme is as simple as creating `DarkButton` and `DarkPanel` c
 
 ```java
 class Person {
-    private final String firstName;
-    private final String lastName;
-    private final Integer age;
-    private final String address;
-    private final String email;
-    private final String phone;
-    // Telescoping constructor: hard to read and maintain
-    public Person(String firstName, String lastName) {
-        this(firstName, lastName, null, null, null, null);
-    }
-    public Person(String firstName, String lastName, Integer age) {
-        this(firstName, lastName, age, null, null, null);
-    }
-    public Person(String firstName, String lastName, Integer age,
-                  String address, String email, String phone) {
-        this.firstName = firstName;
-        this.lastName  = lastName;
-        this.age      = age;
-        this.address  = address;
-        this.email    = email;
-        this.phone    = phone;
-    }
+        private final String firstName;
+        private final String lastName;
+        private final Integer age;
+        private final String address;
+        private final String email;
+        private final String phone;
+        // Telescoping constructor: hard to read and maintain
+        public Person(String firstName, String lastName) {
+                this(firstName, lastName, null, null, null, null);
+        }
+        public Person(String firstName, String lastName, Integer age) {
+                this(firstName, lastName, age, null, null, null);
+        }
+        public Person(String firstName, String lastName, Integer age,
+                                    String address, String email, String phone) {
+                this.firstName = firstName;
+                this.lastName  = lastName;
+                this.age      = age;
+                this.address  = address;
+                this.email    = email;
+                this.phone    = phone;
+        }
 }
 ```
 
@@ -1476,46 +1560,46 @@ class Person {
 
 ```java
 class Person {
-    private final String firstName;
-    private final String lastName;
-    private final Integer age;
-    private final String address;
-    private final String email;
-    private final String phone;
-    private Person(Builder builder) {
-        this.firstName = builder.firstName;
-        this.lastName  = builder.lastName;
-        this.age       = builder.age;
-        this.address   = builder.address;
-        this.email     = builder.email;
-        this.phone     = builder.phone;
-    }
-    public static class Builder {
         private final String firstName;
         private final String lastName;
-        private Integer age;
-        private String address;
-        private String email;
-        private String phone;
-        public Builder(String firstName, String lastName) {
-            this.firstName = firstName;
-            this.lastName  = lastName;
+        private final Integer age;
+        private final String address;
+        private final String email;
+        private final String phone;
+        private Person(Builder builder) {
+                this.firstName = builder.firstName;
+                this.lastName  = builder.lastName;
+                this.age       = builder.age;
+                this.address   = builder.address;
+                this.email     = builder.email;
+                this.phone     = builder.phone;
         }
-        public Builder age(int age) { this.age = age; return this; }
-        public Builder address(String a) { this.address = a; return this; }
-        public Builder email(String e) { this.email = e; return this; }
-        public Builder phone(String p) { this.phone = p; return this; }
-        public Person build() { return new Person(this); }
-    }
-    public String toString() {
-        return firstName + " " + lastName + (age != null ? ", age " + age : "") +
-               (address != null ? ", address=" + address : "") +
-               (email != null ? ", email=" + email : "");
-    }
+        public static class Builder {
+                private final String firstName;
+                private final String lastName;
+                private Integer age;
+                private String address;
+                private String email;
+                private String phone;
+                public Builder(String firstName, String lastName) {
+                        this.firstName = firstName;
+                        this.lastName  = lastName;
+                }
+                public Builder age(int age) { this.age = age; return this; }
+                public Builder address(String a) { this.address = a; return this; }
+                public Builder email(String e) { this.email = e; return this; }
+                public Builder phone(String p) { this.phone = p; return this; }
+                public Person build() { return new Person(this); }
+        }
+        public String toString() {
+                return firstName + " " + lastName + (age != null ? ", age " + age : "") +
+                             (address != null ? ", address=" + address : "") +
+                             (email != null ? ", email=" + email : "");
+        }
 }
 
 Person bob = new Person.Builder("Bob", "Builder").age(30)
-               .address("123 Main St").email("bob@example.com").build();
+                             .address("123 Main St").email("bob@example.com").build();
 System.out.println(bob);
 ```
 
@@ -1530,12 +1614,12 @@ Builders often return `this` to enable method chaining, producing a readable cal
 ```java
 class Address { String street; String city; }
 class Employee implements Cloneable {
-    String name;
-    Address address;
-    public Employee clone() {
-        try { return (Employee) super.clone(); }
-        catch (CloneNotSupportedException e) { throw new AssertionError(); }
-    }
+        String name;
+        Address address;
+        public Employee clone() {
+                try { return (Employee) super.clone(); }
+                catch (CloneNotSupportedException e) { throw new AssertionError(); }
+        }
 }
 
 Employee e1 = new Employee();
@@ -1551,21 +1635,21 @@ e2.address.street = "2nd Ave";
 
 ```java
 class Address implements Cloneable {
-    String street; String city;
-    public Address clone() {
-        try { return (Address) super.clone(); }
-        catch (CloneNotSupportedException e) { throw new AssertionError(); }
-    }
+        String street; String city;
+        public Address clone() {
+                try { return (Address) super.clone(); }
+                catch (CloneNotSupportedException e) { throw new AssertionError(); }
+        }
 }
 class Employee implements Cloneable {
-    String name; Address address;
-    public Employee clone() {
-        Employee copy;
-        try { copy = (Employee) super.clone(); }
-        catch (CloneNotSupportedException e) { throw new AssertionError(); }
-        copy.address = address.clone(); // deep copy nested object
-        return copy;
-    }
+        String name; Address address;
+        public Employee clone() {
+                Employee copy;
+                try { copy = (Employee) super.clone(); }
+                catch (CloneNotSupportedException e) { throw new AssertionError(); }
+                copy.address = address.clone(); // deep copy nested object
+                return copy;
+        }
 }
 
 Employee e1 = new Employee();
@@ -1593,23 +1677,23 @@ class Blue implements Color { public String fill() { return "blue"; } }
 
 // Abstraction hierarchy
 abstract class Shape {
-    protected Color color;
-    protected Shape(Color color) { this.color = color; }
-    public abstract void draw();
+        protected Color color;
+        protected Shape(Color color) { this.color = color; }
+        public abstract void draw();
 }
 class Circle extends Shape {
-    private final int radius;
-    public Circle(int radius, Color color) { super(color); this.radius = radius; }
-    public void draw() {
-        System.out.println("Drawing a " + color.fill() + " circle of radius " + radius);
-    }
+        private final int radius;
+        public Circle(int radius, Color color) { super(color); this.radius = radius; }
+        public void draw() {
+                System.out.println("Drawing a " + color.fill() + " circle of radius " + radius);
+        }
 }
 class Square extends Shape {
-    private final int side;
-    public Square(int side, Color color) { super(color); this.side = side; }
-    public void draw() {
-        System.out.println("Drawing a " + color.fill() + " square of side " + side);
-    }
+        private final int side;
+        public Square(int side, Color color) { super(color); this.side = side; }
+        public void draw() {
+                System.out.println("Drawing a " + color.fill() + " square of side " + side);
+        }
 }
 
 Shape redCircle = new Circle(5, new Red());
@@ -1629,15 +1713,15 @@ The `Shape` abstraction delegates colour selection to the `Color` implementor.  
 interface MediaPlayer { void playMp3(String filename); }
 // Adaptee class
 class AdvancedMediaPlayer {
-    public void playVlc(String filename) { System.out.println("Playing VLC: " + filename); }
-    public void playMp4(String filename) { System.out.println("Playing MP4: " + filename); }
+        public void playVlc(String filename) { System.out.println("Playing VLC: " + filename); }
+        public void playMp4(String filename) { System.out.println("Playing MP4: " + filename); }
 }
 // Class adapter: inherits from AdvancedMediaPlayer and adapts to MediaPlayer
 class MediaAdapter extends AdvancedMediaPlayer implements MediaPlayer {
-    public void playMp3(String filename) {
-        // assume mp3 is supported by MP4
-        playMp4(filename);
-    }
+        public void playMp3(String filename) {
+                // assume mp3 is supported by MP4
+                playMp4(filename);
+        }
 }
 
 MediaPlayer player = new MediaAdapter();
@@ -1651,13 +1735,13 @@ player.playMp3("song.mp3");
 interface LightningPhone { void recharge(); }
 // Adaptee class
 class MicroUsbPhone {
-    public void chargeViaMicroUsb() { System.out.println("Charging with MicroUSB"); }
+        public void chargeViaMicroUsb() { System.out.println("Charging with MicroUSB"); }
 }
 // Object adapter using composition
 class LightningToMicroUsbAdapter implements LightningPhone {
-    private final MicroUsbPhone phone;
-    public LightningToMicroUsbAdapter(MicroUsbPhone phone) { this.phone = phone; }
-    public void recharge() { phone.chargeViaMicroUsb(); }
+        private final MicroUsbPhone phone;
+        public LightningToMicroUsbAdapter(MicroUsbPhone phone) { this.phone = phone; }
+        public void recharge() { phone.chargeViaMicroUsb(); }
 }
 
 MicroUsbPhone android = new MicroUsbPhone();
@@ -1676,24 +1760,24 @@ Object adapters allow you to wrap existing instances at runtime, while class ada
 ```java
 interface Coffee { String getIngredients(); double getCost(); }
 class BasicCoffee implements Coffee {
-    public String getIngredients() { return "Coffee"; }
-    public double getCost() { return 2.0; }
+        public String getIngredients() { return "Coffee"; }
+        public double getCost() { return 2.0; }
 }
 abstract class CoffeeDecorator implements Coffee {
-    protected final Coffee coffee;
-    protected CoffeeDecorator(Coffee coffee) { this.coffee = coffee; }
-    public String getIngredients() { return coffee.getIngredients(); }
-    public double getCost() { return coffee.getCost(); }
+        protected final Coffee coffee;
+        protected CoffeeDecorator(Coffee coffee) { this.coffee = coffee; }
+        public String getIngredients() { return coffee.getIngredients(); }
+        public double getCost() { return coffee.getCost(); }
 }
 class MilkDecorator extends CoffeeDecorator {
-    public MilkDecorator(Coffee coffee) { super(coffee); }
-    public String getIngredients() { return super.getIngredients() + ", milk"; }
-    public double getCost() { return super.getCost() + 0.5; }
+        public MilkDecorator(Coffee coffee) { super(coffee); }
+        public String getIngredients() { return super.getIngredients() + ", milk"; }
+        public double getCost() { return super.getCost() + 0.5; }
 }
 class SugarDecorator extends CoffeeDecorator {
-    public SugarDecorator(Coffee coffee) { super(coffee); }
-    public String getIngredients() { return super.getIngredients() + ", sugar"; }
-    public double getCost() { return super.getCost() + 0.3; }
+        public SugarDecorator(Coffee coffee) { super(coffee); }
+        public String getIngredients() { return super.getIngredients() + ", sugar"; }
+        public double getCost() { return super.getCost() + 0.3; }
 }
 
 Coffee myCoffee = new MilkDecorator(new SugarDecorator(new BasicCoffee()));
@@ -1710,29 +1794,29 @@ Decorators allow layering: you can wrap a coffee with multiple decorators in any
 
 ```java
 interface FileSystemNode {
-    long getSize();
-    void print(String indent);
+        long getSize();
+        void print(String indent);
 }
 class File implements FileSystemNode {
-    private final String name; private final long size;
-    public File(String name, long size) { this.name = name; this.size = size; }
-    public long getSize() { return size; }
-    public void print(String indent) { System.out.println(indent + name + " (" + size + " bytes)"); }
+        private final String name; private final long size;
+        public File(String name, long size) { this.name = name; this.size = size; }
+        public long getSize() { return size; }
+        public void print(String indent) { System.out.println(indent + name + " (" + size + " bytes)"); }
 }
 class Directory implements FileSystemNode {
-    private final String name;
-    private final List<FileSystemNode> children = new ArrayList<>();
-    public Directory(String name) { this.name = name; }
-    public void add(FileSystemNode node) { children.add(node); }
-    public long getSize() {
-        long total = 0;
-        for (FileSystemNode c : children) total += c.getSize();
-        return total;
-    }
-    public void print(String indent) {
-        System.out.println(indent + name + "/");
-        for (FileSystemNode c : children) c.print(indent + "  ");
-    }
+        private final String name;
+        private final List<FileSystemNode> children = new ArrayList<>();
+        public Directory(String name) { this.name = name; }
+        public void add(FileSystemNode node) { children.add(node); }
+        public long getSize() {
+                long total = 0;
+                for (FileSystemNode c : children) total += c.getSize();
+                return total;
+        }
+        public void print(String indent) {
+                System.out.println(indent + name + "/");
+                for (FileSystemNode c : children) c.print(indent + "  ");
+        }
 }
 
 Directory root = new Directory("root");
@@ -1760,27 +1844,27 @@ Because files cannot contain children, the API prevents accidental misuse.  Clie
 
 ```java
 class BigImage implements Image {
-    private final String filename;
-    private byte[] data;
-    public BigImage(String filename) {
-        this.filename = filename;
-        load();
-    }
-    private void load() {
-        System.out.println("Loading image from disk: " + filename);
-        data = new byte[10_000_000]; // simulate expensive load
-    }
-    public void display() { System.out.println("Displaying " + filename); }
+        private final String filename;
+        private byte[] data;
+        public BigImage(String filename) {
+                this.filename = filename;
+                load();
+        }
+        private void load() {
+                System.out.println("Loading image from disk: " + filename);
+                data = new byte[10_000_000]; // simulate expensive load
+        }
+        public void display() { System.out.println("Displaying " + filename); }
 }
 
 class LazyImageProxy implements Image {
-    private final String filename;
-    private BigImage real;
-    public LazyImageProxy(String filename) { this.filename = filename; }
-    public void display() {
-        if (real == null) real = new BigImage(filename);
-        real.display();
-    }
+        private final String filename;
+        private BigImage real;
+        public LazyImageProxy(String filename) { this.filename = filename; }
+        public void display() {
+                if (real == null) real = new BigImage(filename);
+                real.display();
+        }
 }
 
 Image img = new LazyImageProxy("photo.jpg");
@@ -1793,23 +1877,23 @@ img.display(); // subsequent calls do not reload
 
 ```java
 interface Database {
-    void executeQuery(String sql);
+        void executeQuery(String sql);
 }
 class RealDatabase implements Database {
-    public void executeQuery(String sql) { System.out.println("Executing: " + sql); }
+        public void executeQuery(String sql) { System.out.println("Executing: " + sql); }
 }
 class SecureDatabaseProxy implements Database {
-    private final Database realDb;
-    private final String userRole;
-    public SecureDatabaseProxy(Database realDb, String userRole) {
-        this.realDb = realDb; this.userRole = userRole;
-    }
-    public void executeQuery(String sql) {
-        if (!"admin".equals(userRole)) {
-            throw new SecurityException("Only admin can execute queries");
+        private final Database realDb;
+        private final String userRole;
+        public SecureDatabaseProxy(Database realDb, String userRole) {
+                this.realDb = realDb; this.userRole = userRole;
         }
-        realDb.executeQuery(sql);
-    }
+        public void executeQuery(String sql) {
+                if (!"admin".equals(userRole)) {
+                        throw new SecurityException("Only admin can execute queries");
+                }
+                realDb.executeQuery(sql);
+        }
 }
 
 Database db = new SecureDatabaseProxy(new RealDatabase(), "user");
@@ -1829,21 +1913,21 @@ In this example, the protection proxy enforces access control.  The client inter
 interface Observer { void update(float temp); }
 interface Subject { void attach(Observer o); void detach(Observer o); void notifyObservers(); }
 class TemperatureSensor implements Subject {
-    private final List<Observer> observers = new ArrayList<>();
-    private float temperature;
-    public void attach(Observer o) { observers.add(o); }
-    public void detach(Observer o) { observers.remove(o); }
-    public void setTemperature(float temp) {
-        this.temperature = temp;
-        notifyObservers();
-    }
-    public void notifyObservers() {
-        // push model: send temp
-        for (Observer o : observers) o.update(temperature);
-    }
+        private final List<Observer> observers = new ArrayList<>();
+        private float temperature;
+        public void attach(Observer o) { observers.add(o); }
+        public void detach(Observer o) { observers.remove(o); }
+        public void setTemperature(float temp) {
+                this.temperature = temp;
+                notifyObservers();
+        }
+        public void notifyObservers() {
+                // push model: send temp
+                for (Observer o : observers) o.update(temperature);
+        }
 }
 class DigitalDisplay implements Observer {
-    public void update(float temp) { System.out.println("Digital display: " + temp + "°C"); }
+        public void update(float temp) { System.out.println("Digital display: " + temp + "°C"); }
 }
 
 TemperatureSensor sensor = new TemperatureSensor();
@@ -1857,22 +1941,22 @@ In the **pull** model, the `update()` method may receive a reference to the subj
 interface Observer { void update(); }
 interface Subject { void attach(Observer o); void detach(Observer o); void notifyObservers(); float getTemperature(); }
 class PullTemperatureSensor implements Subject {
-    private final List<Observer> observers = new ArrayList<>();
-    private float temperature;
-    public void attach(Observer o) { observers.add(o); }
-    public void detach(Observer o) { observers.remove(o); }
-    public void setTemperature(float temp) {
-        this.temperature = temp; notifyObservers();
-    }
-    public void notifyObservers() { for (Observer o : observers) o.update(); }
-    public float getTemperature() { return temperature; }
+        private final List<Observer> observers = new ArrayList<>();
+        private float temperature;
+        public void attach(Observer o) { observers.add(o); }
+        public void detach(Observer o) { observers.remove(o); }
+        public void setTemperature(float temp) {
+                this.temperature = temp; notifyObservers();
+        }
+        public void notifyObservers() { for (Observer o : observers) o.update(); }
+        public float getTemperature() { return temperature; }
 }
 class CelsiusDisplay implements Observer {
-    private final PullTemperatureSensor sensor;
-    public CelsiusDisplay(PullTemperatureSensor s) { this.sensor = s; }
-    public void update() {
-        System.out.println("Celsius display: " + sensor.getTemperature() + "°C");
-    }
+        private final PullTemperatureSensor sensor;
+        public CelsiusDisplay(PullTemperatureSensor s) { this.sensor = s; }
+        public void update() {
+                System.out.println("Celsius display: " + sensor.getTemperature() + "°C");
+        }
 }
 
 PullTemperatureSensor s = new PullTemperatureSensor();
@@ -1891,48 +1975,48 @@ The pull model reduces coupling because the subject does not need to know which 
 
 ```java
 interface SortStrategy {
-    <T extends Comparable<T>> void sort(List<T> list);
+        <T extends Comparable<T>> void sort(List<T> list);
 }
 class BubbleSortStrategy implements SortStrategy {
-    public <T extends Comparable<T>> void sort(List<T> list) {
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = 0; j < list.size() - i - 1; j++) {
-                if (list.get(j).compareTo(list.get(j+1)) > 0) {
-                    Collections.swap(list, j, j+1);
+        public <T extends Comparable<T>> void sort(List<T> list) {
+                for (int i = 0; i < list.size() - 1; i++) {
+                        for (int j = 0; j < list.size() - i - 1; j++) {
+                                if (list.get(j).compareTo(list.get(j+1)) > 0) {
+                                        Collections.swap(list, j, j+1);
+                                }
+                        }
                 }
-            }
         }
-    }
 }
 class QuickSortStrategy implements SortStrategy {
-    public <T extends Comparable<T>> void sort(List<T> list) {
-        quickSort(list, 0, list.size() - 1);
-    }
-    private <T extends Comparable<T>> void quickSort(List<T> list, int low, int high) {
-        if (low < high) {
-            int pi = partition(list, low, high);
-            quickSort(list, low, pi - 1);
-            quickSort(list, pi + 1, high);
+        public <T extends Comparable<T>> void sort(List<T> list) {
+                quickSort(list, 0, list.size() - 1);
         }
-    }
-    private <T extends Comparable<T>> int partition(List<T> list, int low, int high) {
-        T pivot = list.get(high);
-        int i = low;
-        for (int j = low; j < high; j++) {
-            if (list.get(j).compareTo(pivot) <= 0) {
-                Collections.swap(list, i, j);
-                i++;
-            }
+        private <T extends Comparable<T>> void quickSort(List<T> list, int low, int high) {
+                if (low < high) {
+                        int pi = partition(list, low, high);
+                        quickSort(list, low, pi - 1);
+                        quickSort(list, pi + 1, high);
+                }
         }
-        Collections.swap(list, i, high);
-        return i;
-    }
+        private <T extends Comparable<T>> int partition(List<T> list, int low, int high) {
+                T pivot = list.get(high);
+                int i = low;
+                for (int j = low; j < high; j++) {
+                        if (list.get(j).compareTo(pivot) <= 0) {
+                                Collections.swap(list, i, j);
+                                i++;
+                        }
+                }
+                Collections.swap(list, i, high);
+                return i;
+        }
 }
 
 class Sorter {
-    private SortStrategy strategy;
-    public void setStrategy(SortStrategy s) { this.strategy = s; }
-    public <T extends Comparable<T>> void sort(List<T> list) { strategy.sort(list); }
+        private SortStrategy strategy;
+        public void setStrategy(SortStrategy s) { this.strategy = s; }
+        public <T extends Comparable<T>> void sort(List<T> list) { strategy.sort(list); }
 }
 
 Sorter sorter = new Sorter();
@@ -1964,30 +2048,30 @@ names.sort(alphabetical);    // sort alphabetically
 
 ```java
 abstract class Game {
-    public final void play() {
-        initialize();
-        startPlay();
-        if (shouldShowScore()) { showScore(); }
-        endPlay();
-    }
-    protected abstract void initialize();
-    protected abstract void startPlay();
-    protected abstract void endPlay();
-    // hook
-    protected boolean shouldShowScore() { return false; }
-    protected void showScore() { System.out.println("Score: 0"); }
+        public final void play() {
+                initialize();
+                startPlay();
+                if (shouldShowScore()) { showScore(); }
+                endPlay();
+        }
+        protected abstract void initialize();
+        protected abstract void startPlay();
+        protected abstract void endPlay();
+        // hook
+        protected boolean shouldShowScore() { return false; }
+        protected void showScore() { System.out.println("Score: 0"); }
 }
 class Chess extends Game {
-    protected void initialize() { System.out.println("Initialize chess board"); }
-    protected void startPlay() { System.out.println("Start playing chess"); }
-    protected void endPlay() { System.out.println("End chess game"); }
-    protected boolean shouldShowScore() { return true; }
-    protected void showScore() { System.out.println("Chess score: 1-0"); }
+        protected void initialize() { System.out.println("Initialize chess board"); }
+        protected void startPlay() { System.out.println("Start playing chess"); }
+        protected void endPlay() { System.out.println("End chess game"); }
+        protected boolean shouldShowScore() { return true; }
+        protected void showScore() { System.out.println("Chess score: 1-0"); }
 }
 class Checkers extends Game {
-    protected void initialize() { System.out.println("Setup checkers board"); }
-    protected void startPlay() { System.out.println("Start playing checkers"); }
-    protected void endPlay() { System.out.println("End checkers game"); }
+        protected void initialize() { System.out.println("Setup checkers board"); }
+        protected void startPlay() { System.out.println("Start playing checkers"); }
+        protected void endPlay() { System.out.println("End checkers game"); }
 }
 
 Game chess = new Chess();
@@ -2004,76 +2088,7 @@ The `Chess` class overrides the hook `shouldShowScore()` to display the score, w
 
 ```java
 class Turnstile {
-    private State state = State.LOCKED;
-    public void coin() { state = state.coin(); }
-    public void push() { state = state.push(); }
-    private enum State {
-        LOCKED {
-            State coin() { System.out.println("Unlocking"); return UNLOCKED; }
-            State push() { System.out.println("Locked – insert coin"); return this; }
-        },
-        UNLOCKED {
-            State coin() { System.out.println("Already unlocked"); return this; }
-            State push() { System.out.println("Pushing through"); return LOCKED; }
-        };
-        abstract State coin();
-        abstract State push();
-    }
-}
-
-Turnstile gate = new Turnstile();
-gate.push(); // Locked – insert coin
-gate.coin(); // Unlocking
-gate.push(); // Pushing through
-```
-
-This enum‑based state machine is concise and type‑safe.  Each state knows how to handle events and returns the next state.  For more complex scenarios (e.g., large states with many methods), separate classes as shown earlier may be clearer.
-
-**Document workflow example** – Another state pattern example is a document publishing workflow with states: `Draft`, `Moderation`, `Published`.  Each state determines which actions are allowed:
-
-```java
-interface DocState {
-    void edit(Document doc, String text);
-    void publish(Document doc);
-    void archive(Document doc);
-}
-class Document {
-    private DocState state = new DraftState();
-    private String content = "";
-    public void setState(DocState s) { state = s; }
-    public void edit(String text) { state.edit(this, text); }
-    public void publish() { state.publish(this); }
-    public void archive() { state.archive(this); }
-    public void addContent(String text) { content += text; }
-    public void print() { System.out.println("Document content: " + content); }
-}
-class DraftState implements DocState {
-    public void edit(Document doc, String text) { doc.addContent(text); }
-    public void publish(Document doc) { doc.setState(new ModerationState()); System.out.println("Submitted for moderation"); }
-    public void archive(Document doc) { System.out.println("Cannot archive draft"); }
-}
-class ModerationState implements DocState {
-    public void edit(Document doc, String text) { System.out.println("Cannot edit during moderation"); }
-    public void publish(Document doc) { doc.setState(new PublishedState()); System.out.println("Published"); }
-    public void archive(Document doc) { doc.setState(new ArchivedState()); System.out.println("Archived"); }
-}
-class PublishedState implements DocState {
-    public void edit(Document doc, String text) { System.out.println("Cannot edit published document"); }
-    public void publish(Document doc) { System.out.println("Already published"); }
-    public void archive(Document doc) { doc.setState(new ArchivedState()); System.out.println("Archived"); }
-}
-class ArchivedState implements DocState {
-    public void edit(Document doc, String text) { System.out.println("Cannot edit archived document"); }
-    public void publish(Document doc) { System.out.println("Cannot publish archived document"); }
-    public void archive(Document doc) { System.out.println("Already archived"); }
-}
-
-Document doc = new Document();
-doc.edit("Hello, world!");
-doc.publish(); // moves to moderation
-Document doc2 = doc; // This variable name changed to avoid confusion
-// cannot edit after moved to moderation
-// doc2.edit("Add more?");
+        private State state = State.LOCKED;
 doc.publish(); // publishes
 // doc.archive(); // archives
 ```
@@ -2213,3 +2228,6 @@ while (rev.hasNext()) System.out.println(rev.next());
 ```
 
 A filtered iterator can skip elements that do not satisfy a predicate.  These variations illustrate that the iterator pattern is not limited to a single forward traversal; it’s a flexible interface for exploring collections.
+
+
+[def]: #iterator-external-vs-internal-iteration
